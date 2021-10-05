@@ -1,5 +1,7 @@
 package general;
 
+import org.json.simple.JSONArray;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,7 +18,7 @@ public class Generalities implements Closeable{
             this.reader = createReader();
             this.writer = createWriter();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+           throw new RuntimeException(e);
         }
 
     }
@@ -42,7 +44,7 @@ public class Generalities implements Closeable{
 
     public String readLine(){
         try {
-            return reader.readLine();
+           return reader.readLine();
         } catch (IOException e) {
             throw  new RuntimeException(e);
         }
