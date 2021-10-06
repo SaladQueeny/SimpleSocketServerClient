@@ -7,12 +7,10 @@ import java.util.List;
 public class Client {
     public static void main(String[] args) {
         try(Generalities generalities = new Generalities("127.0.0.1", 8080)){
-            System.out.println("connected");
-            String request = "Alena lox";
-            System.out.println(request);
-            generalities.writeLine(request);
+            System.out.println("Connected to server");
+            generalities.writeLine(ProcessData.createRequest());
             String response = generalities.readLine();
-            System.out.println("response: "+response);
+            System.out.println("Response: "+response);
         } catch (IOException e) {
             e.printStackTrace();
         }
