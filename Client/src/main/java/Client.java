@@ -1,4 +1,3 @@
-
 import general.Generalities;
 
 import java.io.*;
@@ -6,7 +5,6 @@ import java.io.*;
 public class Client {
 
         public static void main(String[] args) {
-
             try(Generalities generalities = new Generalities("127.0.0.1", 8080)){
                 System.out.println("Connected to server");
                 generalities.writeLine(ProcessData.createRequest());
