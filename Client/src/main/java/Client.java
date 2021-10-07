@@ -6,6 +6,7 @@ import java.io.*;
 public class Client {
     //    public void goTo(){
     public static void main(String[] args) {
+        //Egor
 //            try(GeneralThings generalThings = new GeneralThings("127.0.0.1", 8080)){
 //                System.out.println("Connected to server");
 //                generalThings.writeLine(ProcessData.createRequest());
