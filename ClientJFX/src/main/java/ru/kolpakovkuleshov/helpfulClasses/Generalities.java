@@ -1,15 +1,16 @@
+package ru.kolpakovkuleshov.helpfulClasses;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class GeneralThings implements Closeable{
+public class Generalities implements Closeable{
 
     private final Socket socket;
     private final BufferedReader reader;
     private final BufferedWriter writer;
 
-    public GeneralThings(String ip, int port){
+    public Generalities(String ip, int port){
         try {
             this.socket = new Socket(ip, port);
             this.reader = createReader();
@@ -19,7 +20,7 @@ public class GeneralThings implements Closeable{
         }
 
     }
-    public GeneralThings(ServerSocket socket){
+    public Generalities(ServerSocket socket){
         try {
             this.socket = socket.accept();
             this.reader = createReader();
