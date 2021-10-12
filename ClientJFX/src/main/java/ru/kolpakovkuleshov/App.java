@@ -12,7 +12,7 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-
+    //Hi from EgorPC
     private static Scene scene;
 
     @Override
