@@ -5,7 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kolpakovkuleshov.application.PrimaryController">
+<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kolpakovkuleshov.application.PrimaryController">
    <children>
       <Label text="Primary View" />
       <Button fx:id="sendRequestToServerButton" onAction="#sendRequestToServer" text="Send request to server" />
