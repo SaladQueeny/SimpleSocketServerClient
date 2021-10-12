@@ -1,1 +1,5 @@
+ru\kolpakovkuleshov\helpfulClasses\ProcessData.class
+ru\kolpakovkuleshov\helpfulClasses\Generalities.class
 ru\kolpakovkuleshov\App.class
+ru\kolpakovkuleshov\application\PrimaryController.class
+ru\kolpakovkuleshov\application\SecondaryController.class
