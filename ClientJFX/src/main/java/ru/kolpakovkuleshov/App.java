@@ -14,7 +14,7 @@ import java.io.IOException;
 public class App extends Application {
 
     private static Scene scene;
-    //123
+    //1234
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 878, 494);
