@@ -19,6 +19,7 @@ public class PrimaryController {
             generalities.writeLine(ProcessData.createRequest());
             String response = generalities.readLine();
             System.out.println("Response: "+response);
+            ProcessData.getDataFromJson(response);
         } catch (IOException e) {
             e.printStackTrace();
         }
