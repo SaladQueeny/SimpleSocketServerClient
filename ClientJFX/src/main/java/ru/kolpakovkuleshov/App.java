@@ -8,16 +8,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
 public class App extends Application {
 
     private static Scene scene;
     //9
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 878, 494);
+        scene = new Scene(loadFXML("primary"), 900, 500);
         stage.setScene(scene);
         stage.show();
     }

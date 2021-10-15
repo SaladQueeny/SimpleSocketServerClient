@@ -1,6 +1,10 @@
 package ru.kolpakovkuleshov.helpfulClasses;
 
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.util.*;
 
 public class ProcessData {
     public static double x_start;
@@ -12,6 +16,9 @@ public class ProcessData {
     public static double t_start;
     public static double t_end;
     public static double t_change;
+    public static List<List<Double>> z;
+    public static List<Double> t;
+
     public static void getStartData(){
         x_start=0.1;
         x_end=0.5;
@@ -38,4 +45,16 @@ public class ProcessData {
         return obj.toJSONString();
     }
 
+    public static void getDataFromJson(String jsonString){
+        try {
+            JSONParser parser = new JSONParser();
+            JSONObject obj = (JSONObject) parser.parse(jsonString);
+            z = (List<List<Double>>) obj.get("z");
+            System.out.println("z="+z);
+            t = (List<Double>) obj.get("t");
+            System.out.println("t="+t);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
 }

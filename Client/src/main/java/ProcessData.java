@@ -10,6 +10,7 @@ public class ProcessData {
     public static double t_start;
     public static double t_end;
     public static double t_change;
+
     public static void getStartData(){
         x_start=0.1;
         x_end=0.5;
