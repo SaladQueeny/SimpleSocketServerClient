@@ -9,7 +9,7 @@ import java.util.List;
 public class DataOperations {
     public List<Double> y = new ArrayList<>();
     public List<Double> x = new ArrayList<>();
-    public List<Double> t = new ArrayList<>();;
+    public List<Double> t = new ArrayList<>();
     public void getAndSetData(String JSONdata)  {
         try {
             JSONParser parser = new JSONParser();
@@ -51,6 +51,13 @@ public class DataOperations {
         }
         JSONObject object = new JSONObject();
         object.put("z", resultMain);
+
+        resultMain = new JSONArray();
+        for(int i=0; i< t.size();i++){
+            resultMain.add(t.get(i));
+        }
+        object.put("t", resultMain);
+
         return object.toJSONString();
     }
 }

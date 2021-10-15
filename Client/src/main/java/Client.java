@@ -10,6 +10,7 @@ public class Client {
                 generalities.writeLine(ProcessData.createRequest());
                 String response = generalities.readLine();
                 System.out.println("Response: "+response);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
