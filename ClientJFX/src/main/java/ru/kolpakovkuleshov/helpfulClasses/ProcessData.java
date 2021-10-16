@@ -18,6 +18,8 @@ public class ProcessData {
     public static double t_change;
     public static List<List<Double>> z;
     public static List<Double> t;
+    public static List<Double> x;
+    public static List<Double> y;
 
     public static void getStartData(){
         x_start=0.1;
@@ -53,6 +55,10 @@ public class ProcessData {
             System.out.println("z="+z);
             t = (List<Double>) obj.get("t");
             System.out.println("t="+t);
+            x = (List<Double>) obj.get("x");
+            System.out.println("x="+x);
+            y = (List<Double>) obj.get("y");
+            System.out.println("y="+y);
         } catch (ParseException e) {
             e.printStackTrace();
         }

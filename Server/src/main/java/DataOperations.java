@@ -58,6 +58,18 @@ public class DataOperations {
         }
         object.put("t", resultMain);
 
+        resultMain = new JSONArray();
+        for(int i=0; i< x.size();i++){
+            resultMain.add(x.get(i));
+        }
+        object.put("x", resultMain);
+
+        resultMain = new JSONArray();
+        for(int i=0; i< y.size();i++){
+            resultMain.add(y.get(i));
+        }
+        object.put("y", resultMain);
+
         return object.toJSONString();
     }
 }
