@@ -12,13 +12,14 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import ru.kolpakovkuleshov.App;
 import ru.kolpakovkuleshov.helpfulClasses.Generalities;
 import ru.kolpakovkuleshov.helpfulClasses.ProcessData;
 
 public class PrimaryController  {
     @FXML
-    private BubbleChart bubbleChart;
+    private Pane chart_pain;
 
     @FXML
     private Button exit_button;
@@ -129,18 +130,6 @@ public class PrimaryController  {
 
     @FXML
     void initialize() {
-        ////////////////////////////////////////////////////////////////////
-        XYChart.Series<Integer, Double> series2020 = new XYChart.Series<>();
-        series2020.setName("2020");
-        series2020.getData().add(new XYChart.Data<>(14, 12.2, 1.5));
-        XYChart.Series<Integer, Double> series2021 = new XYChart.Series<>();
-        series2021.setName("2021");
-        series2021.getData().add(new XYChart.Data<>(4, 1.2, 8.5));
-        XYChart.Series<Integer, Double> series2022 = new XYChart.Series<>();
-        series2022.setName("2022");
-        series2022.getData().add(new XYChart.Data<>(1, 16.2, 2.5));
-        bubbleChart.getData().addAll(series2020, series2021, series2022);
-        ////////////////////////////////////////////////////////////////////
 
         start_button.setOnAction(event->{
 

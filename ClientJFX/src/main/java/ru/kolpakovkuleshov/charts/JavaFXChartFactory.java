@@ -9,27 +9,18 @@ import javafx.scene.image.ImageView;
 import org.apache.log4j.Logger;
 import org.jzy3d.chart.AWTChart;
 import org.jzy3d.chart.Chart;
-import org.jzy3d.chart.controllers.keyboard.camera.ICameraKeyController;
-import org.jzy3d.chart.controllers.keyboard.screenshot.AWTScreenshotKeyController;
-import org.jzy3d.chart.controllers.keyboard.screenshot.IScreenshotKeyController;
-import org.jzy3d.chart.controllers.keyboard.screenshot.IScreenshotKeyController.IScreenshotEventListener;
-import org.jzy3d.chart.controllers.keyboard.screenshot.NewtScreenshotKeyController;
 import org.jzy3d.chart.controllers.mouse.camera.ICameraMouseController;
 import org.jzy3d.chart.controllers.mouse.picking.IMousePickingController;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
-import org.jzy3d.maths.Utils;
 import org.jzy3d.plot3d.rendering.canvas.OffscreenCanvas;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 import org.jzy3d.plot3d.rendering.view.AWTImageRenderer3d.DisplayListener;
 import org.jzy3d.plot3d.rendering.view.AWTRenderer3d;
 import org.jzy3d.plot3d.rendering.view.Renderer3d;
 import org.jzy3d.plot3d.rendering.view.View;
-import ru.kolpakovkuleshov.charts.controllers.keyboard.JavaFXCameraKeyController;
 import ru.kolpakovkuleshov.charts.controllers.mouse.JavaFXCameraMouseController;
 import ru.kolpakovkuleshov.charts.controllers.mouse.JavaFXMousePickingController;
-
 import java.awt.image.BufferedImage;
-import java.util.Date;
 
 @SuppressWarnings("restriction")
 /* Disable JavaFX access restriction warnings */
@@ -82,8 +73,6 @@ public class JavaFXChartFactory extends AWTChartComponentFactory {
         jfxMouse.setNode(imageView);
         // JavaFXNodeMouse.makeDraggable(stage, imgView);
 
-        JavaFXCameraKeyController jfxKey = (JavaFXCameraKeyController) chart.addKeyboardCameraController();
-        jfxKey.setNode(imageView);
         imageView.setFocusTraversable(true);
         return imageView;
     }
@@ -182,39 +171,5 @@ public class JavaFXChartFactory extends AWTChartComponentFactory {
         return mouse;
     }
 
-    @Override
-    public ICameraKeyController newKeyboardCameraController(Chart chart) {
-        ICameraKeyController key = new JavaFXCameraKeyController(chart, null);
-        return key;
-    }
-
-    /** TODO : replace by a JavaFXScreenshotKeyController */
-    @Override
-    public IScreenshotKeyController newKeyboardScreenshotController(Chart chart) {
-        // trigger screenshot on 's' letter
-        String file = SCREENSHOT_FOLDER + "capture-" + Utils.dat2str(new Date(), "yyyy-MM-dd-HH-mm-ss") + ".png";
-        IScreenshotKeyController screenshot;
-
-        if (!chart.getWindowingToolkit().equals("newt"))
-            screenshot = new AWTScreenshotKeyController(chart, file);
-        else
-            screenshot = new NewtScreenshotKeyController(chart, file);
-
-        screenshot.addListener(new IScreenshotEventListener() {
-            @Override
-            public void failedScreenshot(String file, Exception e) {
-                System.out.println("Failed to save screenshot:");
-                e.printStackTrace();
-            }
-
-            @Override
-            public void doneScreenshot(String file) {
-                System.out.println("Screenshot: " + file);
-            }
-        });
-        return screenshot;
-    }
-
-    public static String SCREENSHOT_FOLDER = "./data/screenshots/";
 
 }
