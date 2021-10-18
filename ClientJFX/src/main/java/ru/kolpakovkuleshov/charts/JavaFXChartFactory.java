@@ -9,9 +9,14 @@ import javafx.scene.image.ImageView;
 import org.apache.log4j.Logger;
 import org.jzy3d.chart.AWTChart;
 import org.jzy3d.chart.Chart;
+import org.jzy3d.chart.controllers.keyboard.screenshot.AWTScreenshotKeyController;
+import org.jzy3d.chart.controllers.keyboard.screenshot.IScreenshotKeyController;
+import org.jzy3d.chart.controllers.keyboard.screenshot.IScreenshotKeyController.IScreenshotEventListener;
+import org.jzy3d.chart.controllers.keyboard.screenshot.NewtScreenshotKeyController;
 import org.jzy3d.chart.controllers.mouse.camera.ICameraMouseController;
 import org.jzy3d.chart.controllers.mouse.picking.IMousePickingController;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
+import org.jzy3d.maths.Utils;
 import org.jzy3d.plot3d.rendering.canvas.OffscreenCanvas;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 import org.jzy3d.plot3d.rendering.view.AWTImageRenderer3d.DisplayListener;
@@ -20,7 +25,9 @@ import org.jzy3d.plot3d.rendering.view.Renderer3d;
 import org.jzy3d.plot3d.rendering.view.View;
 import ru.kolpakovkuleshov.charts.controllers.mouse.JavaFXCameraMouseController;
 import ru.kolpakovkuleshov.charts.controllers.mouse.JavaFXMousePickingController;
+
 import java.awt.image.BufferedImage;
+import java.util.Date;
 
 @SuppressWarnings("restriction")
 /* Disable JavaFX access restriction warnings */

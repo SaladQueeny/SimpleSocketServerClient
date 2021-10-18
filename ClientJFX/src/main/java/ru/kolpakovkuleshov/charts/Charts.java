@@ -22,70 +22,30 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class Charts extends Application {
-    public static void main(String[] args) {
-        Application.launch(args);
-    }
-    private Button btnGenerate;
-    private double a,b;
-    private Pane pane;
-    private ImageView imageView;
-    //private List<AWTChart> chart;
-    private JavaFXChartFactory factory;
-    private Scene scene;
-    public static List<Double> xx;
-    public static List<Double> yy;
-    public static List<List<Double>> zz;
-    @Override
-    public void start(Stage stage) {
-        stage.setTitle(Charts.class.getSimpleName());
-        AtomicInteger Ivan = new AtomicInteger();
-        a=Math.random();
-        b=Math.random();
+public class Charts  {
+
+
+    public List<AWTChart> getAWTCharts() {
+
         List<AWTChart> chart = new ArrayList<>();
         // Jzy3d
-        factory = new JavaFXChartFactory();
+        JavaFXChartFactory factory = new JavaFXChartFactory();
 
         for(int i =0; i< 10;i++){
-            a=i;
-            b=i;
+            //System.out.println("create charts");
             chart.add(getDemoChart(factory, "offscreen"));
         }
-        System.out.println(chart);
+        //System.out.println(chart);
 
-        imageView = factory.bindImageView(chart.get(Ivan.get()));
+        //imageView = factory.bindImageView(chart.get(Ivan.get()));
 
-        // JavaFX
-        pane = new Pane();
-        scene = new Scene(pane);
-        stage.setScene(scene);
-        stage.show();
-        pane.getChildren().add(imageView);
-
-        factory.addSceneSizeChangedListener(chart.get(Ivan.get()), scene);
-
-        btnGenerate = new Button("Generate");
-        btnGenerate.setLayoutX(50);
-        btnGenerate.setLayoutY(50);
-        btnGenerate.setOnAction(event -> {
-            Ivan.getAndIncrement();
-            pane.getChildren().remove(imageView);
-            pane.getChildren().remove(btnGenerate);
-
-            imageView = factory.bindImageView(chart.get(Ivan.get()));
-
-            pane.getChildren().add(imageView);
-            pane.getChildren().add(btnGenerate);
-            factory.addSceneSizeChangedListener(chart.get(Ivan.get()), scene);
-            factory.resetSize(chart.get(Ivan.get()), scene.getWidth(), scene.getHeight());
-        });
-        pane.getChildren().add(btnGenerate);
-
-        stage.setWidth(500);
-        stage.setHeight(500);
+        return chart;
     }
 
     private AWTChart getDemoChart(JavaFXChartFactory factory, String toolkit) {
+        List<Double> xx;
+        List<Double> yy;
+        List<List<Double>> zz;
         xx = new ArrayList<>();
         yy = new ArrayList<>();
         zz = new ArrayList<>();
@@ -95,7 +55,7 @@ public class Charts extends Application {
             xx.add((double) i);
             for(int j=0; j<=10; j++){
 
-                z1.add((double) (Math.sin(j)*Math.cos(i)));
+                z1.add((Math.sin(j)*Math.cos(i)));
             }
             zz.add(z1);
         }

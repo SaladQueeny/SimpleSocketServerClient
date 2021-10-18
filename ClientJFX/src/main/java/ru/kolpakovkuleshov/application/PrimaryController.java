@@ -12,14 +12,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Pane;
+import org.jzy3d.chart.AWTChart;
 import ru.kolpakovkuleshov.App;
+import ru.kolpakovkuleshov.charts.Charts;
 import ru.kolpakovkuleshov.helpfulClasses.Generalities;
 import ru.kolpakovkuleshov.helpfulClasses.ProcessData;
 
 public class PrimaryController  {
     @FXML
-    private Pane chart_pain;
+    private BubbleChart bubbleChart;
 
     @FXML
     private Button exit_button;
@@ -142,7 +143,11 @@ public class PrimaryController  {
                     e.printStackTrace();
                 }
                 System.out.println("We got uor data");
+
             }else{
+                Charts chart = new Charts();
+                List<AWTChart> chartsList = chart.getAWTCharts();
+                System.out.println(chartsList);
                 System.out.println("Null");
             }
 
