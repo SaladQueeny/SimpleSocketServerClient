@@ -6,8 +6,10 @@ public class ComputeFunction {
         int count=t.size(), count1=x.size();
         for(int k =0; k<count;k++){
             List<Double> z1 = new ArrayList<>();
-            for(int i=0; i<count1;i++){
-                z1.add(x.get(i)*t.get(k)+y.get(i)*t.get(k));
+            for(int i=0; i<x.size();i++){
+                for(int j=0; j<y.size();j++){
+                    z1.add(x.get(i)*t.get(k)+y.get(i)*t.get(k));
+                }
             }
             z.add(z1);
         }

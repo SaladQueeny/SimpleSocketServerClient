@@ -21,19 +21,18 @@ public class ProcessData {
     public static List<Double> x;
     public static List<Double> y;
 
-    public static void getStartData(){
-        x_start=0.1;
-        x_end=0.5;
-        x_change=0.1;
-        y_start=0.1;
-        y_end=0.5;
-        y_change=0.1;
-        t_start=1;
-        t_end=2;
-        t_change=1;
+    public static void getStartData(double xstart,double xend,double xchange,double ystart,double yend,double ychange,double tstart,double tend,double tchange){
+        x_start=xstart;
+        x_end=xend;
+        x_change=xchange;
+        y_start=ystart;
+        y_end=yend;
+        y_change=ychange;
+        t_start=tstart;
+        t_end=tend;
+        t_change=tchange;
     }
     public static String createRequest(){
-        getStartData();
         JSONObject obj = new JSONObject();
         obj.put("x_start", x_start);
         obj.put("x_end", x_end);
