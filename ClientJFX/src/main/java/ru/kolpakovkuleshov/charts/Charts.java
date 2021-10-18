@@ -25,17 +25,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Charts  {
 
 
-    public List<AWTChart> getAWTCharts() {
+    public List<AWTChart> getAWTCharts(JavaFXChartFactory factory) {
 
         List<AWTChart> chart = new ArrayList<>();
         // Jzy3d
-        JavaFXChartFactory factory = new JavaFXChartFactory();
 
         for(int i =0; i< 10;i++){
-            //System.out.println("create charts");
+            System.out.println("create charts");
             chart.add(getDemoChart(factory, "offscreen"));
         }
-        //System.out.println(chart);
+        System.out.println(chart);
 
         //imageView = factory.bindImageView(chart.get(Ivan.get()));
 

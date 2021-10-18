@@ -1,6 +1,7 @@
 package ru.kolpakovkuleshov.application;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,13 +9,14 @@ import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import org.jzy3d.chart.AWTChart;
 import ru.kolpakovkuleshov.App;
 import ru.kolpakovkuleshov.charts.Charts;
+import ru.kolpakovkuleshov.charts.JavaFXChartFactory;
 import ru.kolpakovkuleshov.helpfulClasses.Generalities;
 import ru.kolpakovkuleshov.helpfulClasses.ProcessData;
 
@@ -146,8 +148,15 @@ public class PrimaryController  {
 
             }else{
                 Charts chart = new Charts();
-                List<AWTChart> chartsList = chart.getAWTCharts();
-                System.out.println(chartsList);
+                JavaFXChartFactory factory = new JavaFXChartFactory();
+                List<AWTChart> chartsList = chart.getAWTCharts(factory);
+                List<ImageView> imageViewList = new ArrayList<>();
+                for(int i=0; i<chartsList.size(); i++){
+                    System.out.println("create image view");
+                    ImageView imageView = factory.bindImageView(chartsList.get(i));
+                    imageViewList.add(imageView);
+                }
+
                 System.out.println("Null");
             }
 
