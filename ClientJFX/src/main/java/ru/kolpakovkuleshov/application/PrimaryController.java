@@ -11,8 +11,10 @@ import javafx.scene.chart.BubbleChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import org.jzy3d.chart.AWTChart;
 import ru.kolpakovkuleshov.App;
 import ru.kolpakovkuleshov.charts.Charts;
@@ -21,8 +23,12 @@ import ru.kolpakovkuleshov.helpfulClasses.Generalities;
 import ru.kolpakovkuleshov.helpfulClasses.ProcessData;
 
 public class PrimaryController  {
+
     @FXML
-    private BubbleChart bubbleChart;
+    private Slider slider_chart;
+
+    @FXML
+    private Pane chart_pain;
 
     @FXML
     private Button exit_button;
@@ -65,6 +71,8 @@ public class PrimaryController  {
 
     @FXML
     private TextField ystart;
+
+
 
     private void sendRequestToServer() throws IOException {
         try(Generalities generalities = new Generalities("127.0.0.1", 8080)){
@@ -131,8 +139,39 @@ public class PrimaryController  {
                                 Double.parseDouble(tstart.getText().trim()), Double.parseDouble(tend.getText().trim()), Double.parseDouble(tchange.getText().trim()));
     }
 
+    public boolean check = false;
     @FXML
     void initialize() {
+        slider_chart.setMin(0);
+        slider_chart.setMax(10);
+        slider_chart.setValue(0);
+        slider_chart.setBlockIncrement(1.0);
+        slider_chart.setSnapToTicks(true);
+        slider_chart.setMajorTickUnit(1.0);
+        slider_chart.setMinorTickCount(0);
+
+        slider_chart.setOnMouseClicked(mouseEvent -> {
+            check = true;
+        });
+
+        slider_chart.setOnDragDetected(mouseEvent -> {
+            check = true;
+        });
+
+        slider_chart.setOnMouseReleased(mouseEvent -> {
+            if (check) {
+                System.out.println(slider_chart.getValue());
+                check = false;
+            }
+
+        });
+
+//        slider_chart.setOnMouseDragOver(mouseEvent -> {
+//            System.out.println(slider_chart.getValue());
+//        });
+//        slider_chart.valueProperty().addListener(event ->{
+//            System.out.println(slider_chart.getValue());
+//        });
 
         start_button.setOnAction(event->{
 
@@ -156,6 +195,9 @@ public class PrimaryController  {
                     ImageView imageView = factory.bindImageView(chartsList.get(i));
                     imageViewList.add(imageView);
                 }
+
+                chart_pain.getChildren().add(imageViewList.get(0));
+              //factory.addSceneSizeChangedListener(chart, scene);
 
                 System.out.println("Null");
             }
