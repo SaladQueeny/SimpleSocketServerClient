@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,7 +15,9 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 900, 500);
+        scene = new Scene(loadFXML("primary"), 900, 650);
+        //stage.getIcons().add(new Image("icon/icon1.jpg"));
+        stage.setTitle("Killer");
         stage.setScene(scene);
         stage.show();
     }

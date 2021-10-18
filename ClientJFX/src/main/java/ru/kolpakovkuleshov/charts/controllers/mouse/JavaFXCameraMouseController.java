@@ -105,7 +105,7 @@ public class JavaFXCameraMouseController extends AbstractCameraController implem
 
     protected void mouseWheelMoved(ScrollEvent e) {
         stopThreadController();
-        float factor = 1 + (float)e.getDeltaY()/150;
+        float factor = 1 + (float)e.getDeltaY()/1000;
         zoomZ(factor);
     }
 

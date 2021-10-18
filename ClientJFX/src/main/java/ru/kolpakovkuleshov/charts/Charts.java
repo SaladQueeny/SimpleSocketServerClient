@@ -32,7 +32,9 @@ public class Charts  {
 
         for(int i =0; i< 10;i++){
             System.out.println("create charts");
-            chart.add(getDemoChart(factory, "offscreen"));
+            AWTChart awtchart = getDemoChart(factory, "offscreen");
+            factory.resetSize(awtchart, 620, 590);
+            chart.add(awtchart);
         }
         System.out.println(chart);
 
