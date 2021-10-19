@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 public class App extends Application {
@@ -16,9 +17,13 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 900, 650);
-        //stage.getIcons().add(new Image("icon/icon1.jpg"));
+        //stage.getIcons().add(new Image("src/main/java/ru/kolpakovkuleshov/icon/icon.png"));
         stage.setTitle("Killer");
         stage.setScene(scene);
+        String path = "src/main/resources/icon/icon.png";//icon
+        File fileIcon = new File(path);//icon
+        Image applicationIcon = new Image(fileIcon.toURI().toString());//icon
+        stage.getIcons().add(applicationIcon);//icon
         stage.show();
     }
 
