@@ -24,13 +24,13 @@ public class DataOperations {
                     t_end=(double) obj.get("t_end"),
                     t_change=(double) obj.get("t_change");
             for(double xyt=x_start;xyt<=x_end; xyt+=x_change){
-                x.add(xyt);
+                x.add(Math.round(xyt*100000000)/100000000.0);
             }
             for(double xyt=y_start;xyt<=y_end; xyt+=y_change){
-                y.add(xyt);
+                y.add(Math.round(xyt*100000000)/100000000.0);
             }
             for(double xyt=t_start;xyt<=t_end; xyt+=t_change){
-                t.add(xyt);
+                t.add(Math.round(xyt*100000000)/100000000.0);
             }
         } catch (ParseException e) {
             e.printStackTrace();
@@ -40,7 +40,7 @@ public class DataOperations {
 
     public String workWithData(String data) {
         getAndSetData(data);
-        List<List<Double>> z = ComputeFunction.calculate(x, y, t);
+        List<List<List<Double>>> z = ComputeFunction.calculate(x, y, t);
         JSONArray resultMain = new JSONArray();
         for(int i=0; i< z.size();i++){
             JSONArray result = new JSONArray();
