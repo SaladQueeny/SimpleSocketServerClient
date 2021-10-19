@@ -16,7 +16,7 @@ public class ProcessData {
     public static double t_start;
     public static double t_end;
     public static double t_change;
-    public static List<List<Double>> z;
+    public static List<List<List<Double>>> z;
     public static List<Double> t;
     public static List<Double> x;
     public static List<Double> y;
@@ -50,7 +50,7 @@ public class ProcessData {
         try {
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(jsonString);
-            z = (List<List<Double>>) obj.get("z");
+            z = (List<List<List<Double>>>) obj.get("z");
             System.out.println("z="+z);
             t = (List<Double>) obj.get("t");
             System.out.println("t="+t);

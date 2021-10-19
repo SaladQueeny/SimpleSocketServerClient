@@ -73,7 +73,6 @@ public class PrimaryController  {
     private TextField ystart;
 
 
-
     private void sendRequestToServer() throws IOException {
         try(Generalities generalities = new Generalities("127.0.0.1", 8080)){
             System.out.println("Connected to server");
@@ -84,53 +83,53 @@ public class PrimaryController  {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        App.setRoot("secondary");
     }
 
     private boolean isGoodData(){
-        Pattern p = Pattern.compile("(\\d+)([.]*)(\\d*)");
-        Matcher match = p.matcher(xstart.getText().trim());
-        int check =0;
-        if(match.matches()){
-            check++;
-            match = p.matcher(xend.getText().trim());
-            if(match.matches()){
-                check++;
-                match = p.matcher(xchange.getText().trim());
-                if(match.matches()){
-                    check++;
-                    match = p.matcher(ystart.getText().trim());
-                    if(match.matches()){
-                        check++;
-                        match = p.matcher(yend.getText().trim());
-                        if(match.matches()){
-                            check++;
-                            match = p.matcher(ychange.getText().trim());
-                            if(match.matches()){
-                                check++;
-                                match = p.matcher(tstart.getText().trim());
-                                if(match.matches()){
-                                    check++;
-                                    match = p.matcher(tend.getText().trim());
-                                    if(match.matches()){
-                                        check++;
-                                        match = p.matcher(ychange.getText().trim());
-                                        if(match.matches()){
-                                            check++;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if(check==9){
-            return true;
-        }else{
-            return false;
-        }
+//        Pattern p = Pattern.compile("(\\d+)([.]*)(\\d*)");
+//        Matcher match = p.matcher(xstart.getText().trim());
+//        int check =0;
+//        if(match.matches()){
+//            check++;
+//            match = p.matcher(xend.getText().trim());
+//            if(match.matches()){
+//                check++;
+//                match = p.matcher(xchange.getText().trim());
+//                if(match.matches()){
+//                    check++;
+//                    match = p.matcher(ystart.getText().trim());
+//                    if(match.matches()){
+//                        check++;
+//                        match = p.matcher(yend.getText().trim());
+//                        if(match.matches()){
+//                            check++;
+//                            match = p.matcher(ychange.getText().trim());
+//                            if(match.matches()){
+//                                check++;
+//                                match = p.matcher(tstart.getText().trim());
+//                                if(match.matches()){
+//                                    check++;
+//                                    match = p.matcher(tend.getText().trim());
+//                                    if(match.matches()){
+//                                        check++;
+//                                        match = p.matcher(ychange.getText().trim());
+//                                        if(match.matches()){
+//                                            check++;
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        if(check==9){
+//            return true;
+//        }else{
+//            return false;
+//        }
+        return true;
     }
 
     private void getStartData(){
@@ -138,17 +137,21 @@ public class PrimaryController  {
                                 Double.parseDouble(ystart.getText().trim()), Double.parseDouble(yend.getText().trim()), Double.parseDouble(ychange.getText().trim()),
                                 Double.parseDouble(tstart.getText().trim()), Double.parseDouble(tend.getText().trim()), Double.parseDouble(tchange.getText().trim()));
     }
-
+    public void initSlider(){
+        slider_chart.setMin(ProcessData.t_start);
+        slider_chart.setMax(ProcessData.t_end);
+        slider_chart.setValue(ProcessData.t_start);
+        slider_chart.setBlockIncrement(ProcessData.t_change);
+        slider_chart.setSnapToTicks(true);
+        slider_chart.setMajorTickUnit(ProcessData.t_change);
+        slider_chart.setMinorTickCount(0);
+    }
     public boolean check = false;
+    public boolean firstInitSlider = false;
+    List<ImageView> imageViewList = new ArrayList<>();
+
     @FXML
     void initialize() {
-        slider_chart.setMin(0);
-        slider_chart.setMax(10);
-        slider_chart.setValue(0);
-        slider_chart.setBlockIncrement(1.0);
-        slider_chart.setSnapToTicks(true);
-        slider_chart.setMajorTickUnit(1.0);
-        slider_chart.setMinorTickCount(0);
 
         slider_chart.setOnMouseClicked(mouseEvent -> {
             check = true;
@@ -160,46 +163,44 @@ public class PrimaryController  {
 
         slider_chart.setOnMouseReleased(mouseEvent -> {
             if (check) {
-                System.out.println(slider_chart.getValue());
+                Double currentT=slider_chart.getValue();
+                System.out.println(currentT);
+                if(ProcessData.t.indexOf(currentT)!=-1){
+                    System.out.println("We have this T");
+                    chart_pain.getChildren().clear();
+                    chart_pain.getChildren().add(imageViewList.get(ProcessData.t.indexOf(currentT)));
+                }else{
+                    System.out.println("We don't have this T");
+                }
                 check = false;
             }
 
         });
-
-//        slider_chart.setOnMouseDragOver(mouseEvent -> {
-//            System.out.println(slider_chart.getValue());
-//        });
-//        slider_chart.valueProperty().addListener(event ->{
-//            System.out.println(slider_chart.getValue());
-//        });
-
         start_button.setOnAction(event->{
-
             if(isGoodData()){
                 getStartData();
                 try {
                     sendRequestToServer();
+                    initSlider();
+
+                    Charts chart = new Charts();
+                    JavaFXChartFactory factory = new JavaFXChartFactory();
+                    List<AWTChart> chartsList = chart.getAWTCharts(factory, ProcessData.x, ProcessData.y, ProcessData.t, ProcessData.z);
+                    chart_pain.getChildren().clear();
+                    imageViewList.clear();
+                    for(int i=0; i<chartsList.size(); i++){
+                        System.out.println("create image view");
+                        ImageView imageView = factory.bindImageView(chartsList.get(i));
+                        imageViewList.add(imageView);
+                    }
+                    chart_pain.getChildren().add(imageViewList.get(0));
                 } catch (IOException e) {
                     System.out.println("Something wrong with server");
                     e.printStackTrace();
                 }
-                System.out.println("We got uor data");
-
+                System.out.println("We got your data");
             }else{
-                Charts chart = new Charts();
-                JavaFXChartFactory factory = new JavaFXChartFactory();
-                List<AWTChart> chartsList = chart.getAWTCharts(factory);
-                List<ImageView> imageViewList = new ArrayList<>();
-                for(int i=0; i<chartsList.size(); i++){
-                    System.out.println("create image view");
-                    ImageView imageView = factory.bindImageView(chartsList.get(i));
-                    imageViewList.add(imageView);
-                }
-
-                chart_pain.getChildren().add(imageViewList.get(0));
-              //factory.addSceneSizeChangedListener(chart, scene);
-
-                System.out.println("Null");
+                System.out.println("Incorrect data");
             }
 
         });
