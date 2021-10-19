@@ -8,17 +8,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="650.0" prefWidth="900.0" style="-fx-background-image: url('file:C:/Users/vanya/desktop/hlopinkill.png');" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kolpakovkuleshov.application.PrimaryController">
+<AnchorPane prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kolpakovkuleshov.application.PrimaryController">
    <children>
-      <Button fx:id="start_button" layoutX="125.0" layoutY="544.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" text="START" />
-      <TextField layoutX="109.0" layoutY="85.0" fx:id="xend" />
-      <TextField layoutX="109.0" layoutY="131.0" fx:id="xchange" />
-      <TextField fx:id="ystart" layoutX="109.0" layoutY="206.0" />
-      <TextField fx:id="yend" layoutX="109.0" layoutY="254.0" />
-      <TextField fx:id="ychange" layoutX="109.0" layoutY="300.0" />
-      <TextField fx:id="tstart" layoutX="109.0" layoutY="373.0" />
-      <TextField fx:id="tend" layoutX="109.0" layoutY="421.0" />
-      <TextField fx:id="tchange" layoutX="109.0" layoutY="467.0" />
+      <Button fx:id="start_button" layoutX="125.0" layoutY="553.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" style="-fx-background-radius: 100; -fx-background-repeat: 15;" text="START">
+         <font>
+            <Font size="18.0" />
+         </font></Button>
+      <TextField layoutX="109.0" layoutY="85.0" style="-fx-background-radius: 0;" fx:id="xend" />
+      <TextField layoutX="109.0" layoutY="131.0" style="-fx-background-radius: 0;" fx:id="xchange" />
+      <TextField fx:id="ystart" layoutX="109.0" layoutY="206.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="yend" layoutX="109.0" layoutY="254.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="ychange" layoutX="109.0" layoutY="300.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="tstart" layoutX="109.0" layoutY="373.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="tend" layoutX="109.0" layoutY="421.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="tchange" layoutX="109.0" layoutY="467.0" style="-fx-background-radius: 0;" />
       <Text layoutX="52.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xstart" wrappingWidth="47.580078125">
          <font>
             <Font size="18.0" />
@@ -64,14 +67,23 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <TextField layoutX="109.0" layoutY="38.0" fx:id="xstart" />
-      <Button fx:id="exit_button" layoutX="31.0" layoutY="584.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="EXIT" />
+      <TextField layoutX="109.0" layoutY="38.0" style="-fx-background-radius: 0;" fx:id="xstart" />
+      <Button fx:id="exit_button" layoutX="31.0" layoutY="593.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="EXIT">
+         <font>
+            <Font size="13.0" />
+         </font></Button>
       <Pane fx:id="chart_pain" layoutX="271.0" layoutY="50.0" prefHeight="494.0" prefWidth="600.0" />
-      <Slider fx:id="slider_chart" blockIncrement="1.0" layoutX="315.0" layoutY="14.0" majorTickUnit="1.0" max="10.0" prefHeight="38.0" prefWidth="499.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+      <Slider fx:id="slider_chart" blockIncrement="1.0" layoutX="315.0" layoutY="14.0" majorTickUnit="1.0" max="10.0" minorTickCount="0" prefHeight="38.0" prefWidth="577.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
       <Text layoutX="284.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="t=">
          <font>
             <Font size="30.0" />
          </font>
       </Text>
+      <Pane layoutX="22.0" layoutY="185.0" prefHeight="2.0" prefWidth="248.0" style="-fx-background-color: D8D8D8;" />
+      <Pane layoutX="22.0" layoutY="348.0" prefHeight="2.0" prefWidth="248.0" style="-fx-background-color: D8D8D8;" />
+      <Pane layoutX="21.0" layoutY="519.0" prefHeight="2.0" prefWidth="249.0" style="-fx-background-color: D8D8D8;" />
+      <Pane layoutX="268.0" layoutY="18.0" prefHeight="502.0" prefWidth="2.0" style="-fx-background-color: D8D8D8;" />
+      <Pane layoutX="21.0" layoutY="17.0" prefHeight="502.0" prefWidth="2.0" style="-fx-background-color: D8D8D8;" />
+      <Pane layoutX="22.0" layoutY="16.0" prefHeight="2.0" prefWidth="248.0" style="-fx-background-color: D8D8D8;" />
    </children>
 </AnchorPane>
