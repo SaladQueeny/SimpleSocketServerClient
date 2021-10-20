@@ -13,24 +13,25 @@ import org.jzy3d.plot3d.rendering.canvas.Quality;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Charts  {
+public class Charts {
 
     private List<Double> x;
     private List<Double> y;
     private List<Double> t;
     private List<List<List<Double>>> z;
+
     public List<AWTChart> getAWTCharts(JavaFXChartFactory factory, List<Double> x, List<Double> y, List<Double> t, List<List<List<Double>>> z) {
 
-        this.x=x;
-        this.y=y;
-        this.t=t;
-        this.z=z;
+        this.x = x;
+        this.y = y;
+        this.t = t;
+        this.z = z;
 
         List<AWTChart> chart = new ArrayList<>();
-        System.out.println(t.size()+" "+ z.size()+" "+z.get(0).size()+" "+x.size()+" "+y.size());
-        for(int i =0; i< t.size(); i++){
+        System.out.println(t.size() + " " + z.size() + " " + z.get(0).size() + " " + x.size() + " " + y.size());
+        for (int i = 0; i < t.size(); i++) {
             System.out.println("create charts");
-            AWTChart awtchart = getDemoChart(factory,t.get(i), "offscreen");
+            AWTChart awtchart = getDemoChart(factory, t.get(i), "offscreen");
             factory.resetSize(awtchart, 620, 590);
             chart.add(awtchart);
         }
@@ -38,25 +39,33 @@ public class Charts  {
         return chart;
     }
 
-    private AWTChart getDemoChart(JavaFXChartFactory factory,double current_t,  String toolkit) {
-        // -------------------------------
-        // Define a function to plot
+    private AWTChart getDemoChart(JavaFXChartFactory factory, double current_t, String toolkit) {
+
         Mapper mapper = new Mapper() {
             @Override
             public double f(double xx, double yy) {
-                yy=Math.round(yy*100000000)/100000000;
-                xx=Math.round(xx*100000000)/100000000;
-                double value =z.get(t.indexOf(current_t)).get(y.indexOf(yy)).get(x.indexOf(xx));
-                //System.out.println(value);
+                System.out.println("before round");
+                System.out.print(" xx=" + xx + " ");
+                System.out.print("yy=" + yy);
+                System.out.println();
+                yy = Math.round(yy * 1000) / 1000.0;
+                xx = Math.round(xx * 1000) / 1000.0;
+                System.out.println("after round");
+                System.out.print(" xx=" + xx + " ");
+                System.out.print("yy=" + yy);
+                System.out.println();
+                System.out.println();
+                System.out.println();
+                double value = z.get(t.indexOf(current_t)).get(x.indexOf(xx)).get(y.indexOf(yy));
                 return value;
             }
         };
 
-        // Define range and precision for the function to plot
-        Range range = new Range(x.get(0).floatValue(), x.get(x.size()-1).floatValue());
+
+        Range range = new Range(x.get(0).floatValue(), x.get(x.size() - 1).floatValue());
         int steps = x.size();
 
-        // Create the object to represent the function over the given range.
+
         final Shape surface = Builder.buildOrthonormal(mapper, range, steps);
         surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), surface.getBounds().getZmin(), surface.getBounds().getZmax(), new Color(1, 1, 1, .5f)));
         surface.setFaceDisplayed(true);
