@@ -4,7 +4,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.util.*;
+import java.util.List;
 
 public class ProcessData {
     public static double x_start;
@@ -21,18 +21,19 @@ public class ProcessData {
     public static List<Double> x;
     public static List<Double> y;
 
-    public static void getStartData(double xstart,double xend,double xchange,double ystart,double yend,double ychange,double tstart,double tend,double tchange){
-        x_start=xstart;
-        x_end=xend;
-        x_change=xchange;
-        y_start=ystart;
-        y_end=yend;
-        y_change=ychange;
-        t_start=tstart;
-        t_end=tend;
-        t_change=tchange;
+    public static void getStartData(double xstart, double xend, double xchange, double ystart, double yend, double ychange, double tstart, double tend, double tchange) {
+        x_start = xstart;
+        x_end = xend;
+        x_change = xchange;
+        y_start = ystart;
+        y_end = yend;
+        y_change = ychange;
+        t_start = tstart;
+        t_end = tend;
+        t_change = tchange;
     }
-    public static String createRequest(){
+
+    public static String createRequest() {
         JSONObject obj = new JSONObject();
         obj.put("x_start", x_start);
         obj.put("x_end", x_end);
@@ -46,18 +47,18 @@ public class ProcessData {
         return obj.toJSONString();
     }
 
-    public static void getDataFromJson(String jsonString){
+    public static void getDataFromJson(String jsonString) {
         try {
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(jsonString);
             z = (List<List<List<Double>>>) obj.get("z");
-            System.out.println("z="+z);
+            System.out.println("z=" + z);
             t = (List<Double>) obj.get("t");
-            System.out.println("t="+t);
+            System.out.println("t=" + t);
             x = (List<Double>) obj.get("x");
-            System.out.println("x="+x);
+            System.out.println("x=" + x);
             y = (List<Double>) obj.get("y");
-            System.out.println("y="+y);
+            System.out.println("y=" + y);
         } catch (ParseException e) {
             e.printStackTrace();
         }

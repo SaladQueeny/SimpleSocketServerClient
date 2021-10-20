@@ -1,30 +1,24 @@
 package ru.kolpakovkuleshov.application;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.logging.Level;
 
 import javafx.fxml.FXML;
-import javafx.scene.chart.BubbleChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.control.Alert;
 import org.jzy3d.chart.AWTChart;
-import ru.kolpakovkuleshov.App;
+import ru.kolpakovkuleshov.helpfulClasses.Logs;
 import ru.kolpakovkuleshov.charts.Charts;
 import ru.kolpakovkuleshov.charts.JavaFXChartFactory;
 import ru.kolpakovkuleshov.helpfulClasses.Generalities;
 import ru.kolpakovkuleshov.helpfulClasses.ProcessData;
 
-public class PrimaryController  {
+public class PrimaryController {
 
     @FXML
     private Slider slider_chart;
@@ -34,9 +28,6 @@ public class PrimaryController  {
 
     @FXML
     private Button exit_button;
-
-    @FXML
-    private ScrollBar scrollbar;
 
     @FXML
     private Button start_button;
@@ -51,9 +42,6 @@ public class PrimaryController  {
     private TextField tstart;
 
     @FXML
-    private NumberAxis xAxis;
-
-    @FXML
     private TextField xchange;
 
     @FXML
@@ -61,9 +49,6 @@ public class PrimaryController  {
 
     @FXML
     private TextField xstart;
-
-    @FXML
-    private NumberAxis yAxis;
 
     @FXML
     private TextField ychange;
@@ -76,18 +61,16 @@ public class PrimaryController  {
 
 
     private void sendRequestToServer() throws IOException {
-        try(Generalities generalities = new Generalities("127.0.0.1", 8080)){
-            System.out.println("Connected to server");
+        try (Generalities generalities = new Generalities("127.0.0.1", 8080)) {
             generalities.writeLine(ProcessData.createRequest());
             String response = generalities.readLine();
-            System.out.println("Response: "+response);
             ProcessData.getDataFromJson(response);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private boolean isGoodData(){
+    private boolean isGoodData() {
 //        Pattern p = Pattern.compile("(\\d+)([.]*)(\\d*)");
 //        Matcher match = p.matcher(xstart.getText().trim());
 //        int check =0;
@@ -134,12 +117,13 @@ public class PrimaryController  {
         return true;
     }
 
-    private void getStartData(){
+    private void getStartData() {
         ProcessData.getStartData(Double.parseDouble(xstart.getText().trim()), Double.parseDouble(xend.getText().trim()), Double.parseDouble(xchange.getText().trim()),
-                                Double.parseDouble(ystart.getText().trim()), Double.parseDouble(yend.getText().trim()), Double.parseDouble(ychange.getText().trim()),
-                                Double.parseDouble(tstart.getText().trim()), Double.parseDouble(tend.getText().trim()), Double.parseDouble(tchange.getText().trim()));
+                Double.parseDouble(ystart.getText().trim()), Double.parseDouble(yend.getText().trim()), Double.parseDouble(ychange.getText().trim()),
+                Double.parseDouble(tstart.getText().trim()), Double.parseDouble(tend.getText().trim()), Double.parseDouble(tchange.getText().trim()));
     }
-    public void initSlider(){
+
+    public void initSlider() {
         slider_chart.setMin(ProcessData.t_start);
         slider_chart.setMax(ProcessData.t_end);
         slider_chart.setValue(ProcessData.t_start);
@@ -148,13 +132,13 @@ public class PrimaryController  {
         slider_chart.setMajorTickUnit(ProcessData.t_change);
         slider_chart.setMinorTickCount(0);
     }
+
     public boolean check = false;
-    public boolean firstInitSlider = false;
     List<ImageView> imageViewList = new ArrayList<>();
 
     @FXML
     void initialize() {
-
+        Logs.writeLog(this.getClass(), "initialize", Level.INFO);
         slider_chart.setOnMouseClicked(mouseEvent -> {
             check = true;
         });
@@ -165,55 +149,48 @@ public class PrimaryController  {
 
         slider_chart.setOnMouseReleased(mouseEvent -> {
             if (check) {
-                Double currentT=slider_chart.getValue();
-                System.out.println(currentT);
-                if(ProcessData.t.indexOf(currentT)!=-1){
-                    System.out.println("We have this T");
+                Double currentT = slider_chart.getValue();
+                if (ProcessData.t.contains(currentT)) {
                     chart_pain.getChildren().clear();
                     chart_pain.getChildren().add(imageViewList.get(ProcessData.t.indexOf(currentT)));
-                }else{
+                } else {
+                    //notification
                     System.out.println("We don't have this T");
                 }
                 check = false;
             }
 
         });
-        start_button.setOnAction(event->{
-            //ошибка
-//            Alert a1 = new Alert(Alert.AlertType.ERROR);
-//            a1.setTitle("Test Alert");
-//            a1.setContentText("u have a trouble");
-//            a1.setHeaderText(null);
-//            a1.show();
-            if(isGoodData()){
+        start_button.setOnAction(event -> {
+            if (isGoodData()) {
                 getStartData();
                 try {
                     sendRequestToServer();
                     initSlider();
-
                     Charts chart = new Charts();
                     JavaFXChartFactory factory = new JavaFXChartFactory();
                     List<AWTChart> chartsList = chart.getAWTCharts(factory, ProcessData.x, ProcessData.y, ProcessData.t, ProcessData.z);
                     chart_pain.getChildren().clear();
                     imageViewList.clear();
-                    for(int i=0; i<chartsList.size(); i++){
-                        System.out.println("create image view");
+                    for (int i = 0; i < chartsList.size(); i++) {
                         ImageView imageView = factory.bindImageView(chartsList.get(i));
                         imageViewList.add(imageView);
                     }
                     chart_pain.getChildren().add(imageViewList.get(0));
                 } catch (IOException e) {
+                    //notification
                     System.out.println("Something wrong with server");
                     e.printStackTrace();
                 }
                 System.out.println("We got your data");
-            }else{
+            } else {
+                //notification
                 System.out.println("Incorrect data");
             }
 
         });
 
-        exit_button.setOnAction(event->{
+        exit_button.setOnAction(event -> {
             System.exit(0);
         });
 

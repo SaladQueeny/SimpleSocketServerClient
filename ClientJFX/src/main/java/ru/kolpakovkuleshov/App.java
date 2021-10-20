@@ -17,13 +17,12 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 900, 650);
-        //stage.getIcons().add(new Image("src/main/java/ru/kolpakovkuleshov/icon/icon.png"));
         stage.setTitle("Killer");
         stage.setScene(scene);
-        String path = "src/main/resources/icon/icon.png";//icon
-        File fileIcon = new File(path);//icon
-        Image applicationIcon = new Image(fileIcon.toURI().toString());//icon
-        stage.getIcons().add(applicationIcon);//icon
+        String path = "src/main/resources/icon/icon.png";
+        File fileIcon = new File(path);
+        Image applicationIcon = new Image(fileIcon.toURI().toString());
+        stage.getIcons().add(applicationIcon);
         stage.show();
     }
 
