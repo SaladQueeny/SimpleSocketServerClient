@@ -1,5 +1,7 @@
 package ru.kolpakovkuleshov.helpfulClasses;
 
+import javafx.scene.control.Alert;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -16,6 +18,11 @@ public class Generalities implements Closeable{
             this.reader = createReader();
             this.writer = createWriter();
         } catch (IOException e) {
+            Alert a1 = new Alert(Alert.AlertType.ERROR);
+            a1.setTitle("ERROR");
+            a1.setContentText("Can't join to server!");
+            a1.setHeaderText("Server error!");
+            a1.show();
             throw new RuntimeException(e);
         }
 
