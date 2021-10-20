@@ -8,8 +8,8 @@ public class ComputeFunction {
             for(int i=0; i<x.size();i++){
                 List<Double> zy = new ArrayList<>();
                 for(int j=0; j<y.size();j++){
-                    double value = (Math.sin(x.get(i)*x.get(i)+y.get(j)*y.get(j))/(0.1+y.get(j)*y.get(j)+x.get(i)*x.get(i)));
-                    zy.add(value);
+                    double value = (Math.sin(x.get(i)+y.get(j))/(0.1+y.get(j)+x.get(i)));
+                    zy.add(0.1+value);
                 }
                 zx.add(zy);
             }
