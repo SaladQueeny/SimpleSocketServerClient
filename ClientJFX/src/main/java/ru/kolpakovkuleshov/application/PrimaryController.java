@@ -1,5 +1,6 @@
 package ru.kolpakovkuleshov.application;
 
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.Alert;
 import org.jzy3d.chart.AWTChart;
 import ru.kolpakovkuleshov.App;
 import ru.kolpakovkuleshov.charts.Charts;
@@ -177,6 +179,12 @@ public class PrimaryController  {
 
         });
         start_button.setOnAction(event->{
+            //ошибка
+//            Alert a1 = new Alert(Alert.AlertType.ERROR);
+//            a1.setTitle("Test Alert");
+//            a1.setContentText("u have a trouble");
+//            a1.setHeaderText(null);
+//            a1.show();
             if(isGoodData()){
                 getStartData();
                 try {
