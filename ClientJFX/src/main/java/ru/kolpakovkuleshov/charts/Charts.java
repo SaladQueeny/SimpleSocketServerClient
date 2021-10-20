@@ -44,18 +44,8 @@ public class Charts {
         Mapper mapper = new Mapper() {
             @Override
             public double f(double xx, double yy) {
-                System.out.println("before round");
-                System.out.print(" xx=" + xx + " ");
-                System.out.print("yy=" + yy);
-                System.out.println();
                 yy = Math.round(yy * 1000) / 1000.0;
                 xx = Math.round(xx * 1000) / 1000.0;
-                System.out.println("after round");
-                System.out.print(" xx=" + xx + " ");
-                System.out.print("yy=" + yy);
-                System.out.println();
-                System.out.println();
-                System.out.println();
                 double value = z.get(t.indexOf(current_t)).get(x.indexOf(xx)).get(y.indexOf(yy));
                 return value;
             }
@@ -71,13 +61,8 @@ public class Charts {
         surface.setFaceDisplayed(true);
         surface.setWireframeDisplayed(false);
 
-        // -------------------------------
-        // Create a chart
         Quality quality = Quality.Advanced;
-        //quality.setSmoothPolygon(true);
-        //quality.setAnimated(true);
 
-        // let factory bind mouse and keyboard controllers to JavaFX node
         AWTChart chart = (AWTChart) factory.newChart(quality, toolkit);
         chart.getScene().getGraph().add(surface);
 
