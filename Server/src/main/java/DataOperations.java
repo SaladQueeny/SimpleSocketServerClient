@@ -3,6 +3,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,9 @@ public class DataOperations {
             }
             for (double xyt = t_start; xyt <= t_end; xyt += t_change) {
                 t.add(Math.round(xyt * 10000) / 10000.0);
+            }
+            if (x.size() != y.size()){
+
             }
         } catch (ParseException e) {
             e.printStackTrace();
