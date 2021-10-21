@@ -62,11 +62,15 @@ public class PrimaryController {
     @FXML
     private TextField ystart;
 
-    private void sendRequestToServer() throws IOException {
+    private void sendRequestToServer() {
+        Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                "Send request to server", Level.INFO, true);
         try (Generalities generalities = new Generalities("127.0.0.1", 8080)) {
             generalities.writeLine(ProcessData.createRequest());
             String response = generalities.readLine();
             ProcessData.getDataFromJson(response);
+            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                    "Get correct data from server", Level.INFO, true);
         } catch (IOException e) {
             Alert a1 = new Alert(Alert.AlertType.ERROR);
             a1.setTitle("ERROR");
@@ -74,38 +78,40 @@ public class PrimaryController {
             a1.setHeaderText("Server error!");
             a1.show();
             e.printStackTrace();
+            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                    "Can't join to server", Level.SEVERE, true);
         }
     }
 
     private boolean isGoodData() {
         Pattern p = Pattern.compile("[-]?[0-9]+(.[0-9]+)?");
         Matcher match = p.matcher(xstart.getText().trim());
-        int check =0;
-        if(match.matches()){
+        int check = 0;
+        if (match.matches()) {
             check++;
             match = p.matcher(xend.getText().trim());
-            if(match.matches()){
+            if (match.matches()) {
                 check++;
                 match = p.matcher(xchange.getText().trim());
-                if(match.matches()){
+                if (match.matches()) {
                     check++;
                     match = p.matcher(ystart.getText().trim());
-                    if(match.matches()){
+                    if (match.matches()) {
                         check++;
                         match = p.matcher(yend.getText().trim());
-                        if(match.matches()){
+                        if (match.matches()) {
                             check++;
                             match = p.matcher(ychange.getText().trim());
-                            if(match.matches()){
+                            if (match.matches()) {
                                 check++;
                                 match = p.matcher(tstart.getText().trim());
-                                if(match.matches()){
+                                if (match.matches()) {
                                     check++;
                                     match = p.matcher(tend.getText().trim());
-                                    if(match.matches()){
+                                    if (match.matches()) {
                                         check++;
                                         match = p.matcher(tchange.getText().trim());
-                                        if(match.matches()){
+                                        if (match.matches()) {
                                             check++;
                                         }
                                     }
@@ -116,17 +122,22 @@ public class PrimaryController {
                 }
             }
         }
-        if(check==9){
+        Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                "Check correct data", Level.SEVERE, true);
+        if (check == 9) {
             return true;
-        }else{
+        } else {
             return false;
         }
+
     }
 
     private void getStartData() {
         ProcessData.getStartData(Double.parseDouble(xstart.getText().trim()), Double.parseDouble(xend.getText().trim()), Double.parseDouble(xchange.getText().trim()),
                 Double.parseDouble(ystart.getText().trim()), Double.parseDouble(yend.getText().trim()), Double.parseDouble(ychange.getText().trim()),
                 Double.parseDouble(tstart.getText().trim()), Double.parseDouble(tend.getText().trim()), Double.parseDouble(tchange.getText().trim()));
+        Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                "Got start data", Level.SEVERE, true);
     }
 
     public void initSlider() {
@@ -137,14 +148,18 @@ public class PrimaryController {
         slider_chart.setSnapToTicks(true);
         slider_chart.setMajorTickUnit(ProcessData.t_change);
         slider_chart.setMinorTickCount(0);
+        Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                "init slider with current t", Level.SEVERE, true);
     }
 
     public boolean check = false;
     List<ImageView> imageViewList = new ArrayList<>();
     public double previous_T;
+
     @FXML
     void initialize() {
-        Logs.writeLog(this.getClass(), "initialize", Level.INFO);
+        Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                "Start initialization", Level.INFO, true);
         slider_chart.setOnMouseClicked(mouseEvent -> {
             check = true;
         });
@@ -154,11 +169,15 @@ public class PrimaryController {
         });
 
         slider_chart.setOnMouseReleased(mouseEvent -> {
+            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                    "Slider_charts moved", Level.INFO, true);
             if (check) {
                 Double currentT = slider_chart.getValue();
                 if (ProcessData.t.contains(currentT)) {
                     chart_pain.getChildren().clear();
                     chart_pain.getChildren().add(imageViewList.get(ProcessData.t.indexOf(currentT)));
+                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                            "Add charts with current_t", Level.WARNING, true);
                 } else {
                     //notification
                     Alert a1 = new Alert(Alert.AlertType.ERROR);
@@ -166,15 +185,19 @@ public class PrimaryController {
                     a1.setContentText("We don't have this T!");
                     a1.setHeaderText("Incorrect data!");
                     a1.show();
+                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                            "Can't add charts with current_t(don't have this t)", Level.WARNING, true);
                 }
-                if (previous_T != currentT){
+                if (previous_T != currentT) {
 
-                }else{
+                } else {
                     Alert a1 = new Alert(Alert.AlertType.WARNING);
                     a1.setTitle("WARNING");
                     a1.setContentText("We have this T!");
                     a1.setHeaderText("Duplicate T!");
                     a1.show();
+                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                            "Add charts with current_t", Level.WARNING, true);
                 }
                 check = false;
                 previous_T = currentT;
@@ -185,7 +208,7 @@ public class PrimaryController {
 
             if (isGoodData()) {
                 getStartData();
-                try {
+                //try {
                     sendRequestToServer();
                     initSlider();
                     Charts chart = new Charts();
@@ -196,18 +219,23 @@ public class PrimaryController {
                     for (int i = 0; i < chartsList.size(); i++) {
                         ImageView imageView = factory.bindImageView(chartsList.get(i));
                         imageViewList.add(imageView);
+
                     }
+                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                            "successfully create all charts", Level.INFO, true);
                     chart_pain.getChildren().add(imageViewList.get(0));
-                } catch (IOException e) {
-                    //notification
-                    Alert a1 = new Alert(Alert.AlertType.ERROR);
-                    a1.setTitle("ERROR");
-                    a1.setContentText("Can't join to server!");
-                    a1.setHeaderText("Server error!");
-                    a1.show();
-                    System.out.println("Something wrong with server");
-                    e.printStackTrace();
-                }
+//                } catch (IOException e) {
+//                    //notification
+//                    Alert a1 = new Alert(Alert.AlertType.ERROR);
+//                    a1.setTitle("ERROR");
+//                    a1.setContentText("Can't join to server!");
+//                    a1.setHeaderText("Server error!");
+//                    a1.show();
+//                    System.out.println("Something wrong with server");
+//                    e.printStackTrace();
+//                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+//                            "successfully create all charts", Level.INFO, true);
+//                }
                 System.out.println("We got your data");
             } else {
                 //notification
@@ -216,11 +244,15 @@ public class PrimaryController {
                 a1.setContentText("The data entered is incorrect or there is not enough data!");
                 a1.setHeaderText("Incorrect data!");
                 a1.show();
+                Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                        "The data entered is incorrect or there is not enough data", Level.SEVERE, true);
             }
 
         });
 
         exit_button.setOnAction(event -> {
+            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                    "exit", Level.INFO, true);
             System.exit(0);
         });
 

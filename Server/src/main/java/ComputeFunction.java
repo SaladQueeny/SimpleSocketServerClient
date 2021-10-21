@@ -1,4 +1,7 @@
+import general.Logs;
+
 import java.util.*;
+import java.util.logging.Level;
 
 public class ComputeFunction {
     public static List<List<List<Double>>> calculate(List<Double> x, List<Double> y, List<Double> t){
@@ -16,6 +19,8 @@ public class ComputeFunction {
             }
             z.add(zx);
         }
+        Logs.writeLog(ComputeFunction.class, new Throwable().getStackTrace()[0].getMethodName(),
+                "Compute z", Level.INFO, true);
         return z;
     }
 }
