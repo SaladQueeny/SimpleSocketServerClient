@@ -1,3 +1,4 @@
+import general.Logs;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -6,11 +7,13 @@ import org.json.simple.parser.ParseException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class DataOperations {
-    public List<Double> y = new ArrayList<>();
-    public List<Double> x = new ArrayList<>();
-    public List<Double> t = new ArrayList<>();
+    private List<Double> y = new ArrayList<>();
+    private List<Double> x = new ArrayList<>();
+    private List<Double> t = new ArrayList<>();
+    private boolean checksize = true;
 
     public void getAndSetData(String JSONdata) {
         try {
@@ -34,9 +37,11 @@ public class DataOperations {
             for (double xyt = t_start; xyt <= t_end; xyt += t_change) {
                 t.add(Math.round(xyt * 10000) / 10000.0);
             }
-            if (x.size() != y.size()){
-
+            if (x.size() != y.size()) {
+                checksize=false;
             }
+            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                    "Compute all lists (x,y,t)", Level.INFO, true);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -74,7 +79,9 @@ public class DataOperations {
             resultMain.add(y.get(i));
         }
         object.put("y", resultMain);
-
+        object.put("checkSize", checksize);
+        Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+                "Create request to client with lists of x, y, t, z", Level.INFO, true);
         return object.toJSONString();
     }
 }

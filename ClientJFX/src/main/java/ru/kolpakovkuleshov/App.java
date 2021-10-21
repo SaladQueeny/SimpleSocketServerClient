@@ -6,9 +6,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import ru.kolpakovkuleshov.helpfulClasses.Logs;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
 
 public class App extends Application {
 
@@ -36,6 +38,8 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
+        Logs.writeLog(App.class, new Throwable().getStackTrace()[0].getMethodName(),
+                "launch application", Level.INFO, true);
         launch();
     }
 
