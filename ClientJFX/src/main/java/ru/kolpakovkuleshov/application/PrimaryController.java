@@ -65,7 +65,7 @@ public class PrimaryController {
     private void sendRequestToServer() {
         Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                 "Send request to server", Level.INFO, true);
-        try (Generalities generalities = new Generalities("127.0.0.1", 8080)) {
+        try (Generalities generalities = new Generalities("127.0.0.1", 8000)) {
             generalities.writeLine(ProcessData.createRequest());
             String response = generalities.readLine();
             ProcessData.getDataFromJson(response);

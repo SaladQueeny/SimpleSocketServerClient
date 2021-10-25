@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="128.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kolpakovkuleshov.FirstScene">
+   <children>
+      <Pane prefHeight="147.0" prefWidth="602.0">
+         <children>
+            <TextField fx:id="textFieldPath" layoutX="18.0" layoutY="49.0" prefHeight="38.0" prefWidth="564.0" />
+            <Text layoutX="153.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your path to the class:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <Button fx:id="start_path" layoutX="253.0" layoutY="95.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-radius: 100;" text="START">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
+            <Pane prefHeight="147.0" prefWidth="4.0" style="-fx-background-color: ACACAC;" />
+            <Pane layoutX="598.0" prefHeight="147.0" prefWidth="4.0" style="-fx-background-color: ACACAC;" />
+            <Pane layoutX="-10.0" layoutY="144.0" prefHeight="4.0" prefWidth="612.0" style="-fx-background-color: ACACAC;" />
+            <Pane layoutX="-5.0" prefHeight="4.0" prefWidth="606.0" style="-fx-background-color: ACACAC;" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
