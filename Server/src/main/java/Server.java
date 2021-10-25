@@ -6,7 +6,7 @@ import java.net.ServerSocket;
 public class Server {
     //Egor
     public static void main(String[] args)  {
-        try(ServerSocket server = new ServerSocket(8080)){
+        try(ServerSocket server = new ServerSocket(8000)){
             System.out.println("Server created");
             while(true){
                 Generalities generalities = new Generalities(server);
