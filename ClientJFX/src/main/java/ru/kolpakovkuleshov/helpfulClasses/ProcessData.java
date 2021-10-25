@@ -4,9 +4,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
+import javax.tools.*;
+import java.io.*;
+import java.net.URI;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -27,16 +28,16 @@ public class ProcessData {
     public static List<Double> t;
     public static List<Double> x;
     public static List<Double> y;
+    public static File f;
 
-    public static void getClassText(StringBuilder class_text){
-
+    public static void setClassText(StringBuilder class_text){
         classText =class_text;
         Logs.writeLog(ProcessData.class, new Throwable().getStackTrace()[0].getMethodName(),
                 "Get class text", Level.INFO, true);
     }
 
-    public static void getStartData(double xstart, double xend, double xchange, double ystart, double yend, double ychange, double tstart, double tend, double tchange) {
-        File f = new File("C:\\Users\\kolpa\\IdeaProjects\\test1.java");
+    public static void setStartData(double xstart, double xend, double xchange, double ystart, double yend, double ychange, double tstart, double tend, double tchange) {
+        f = new File("C:\\Users\\kolpa\\IdeaProjects\\test1.java");
         Scanner scaner = null;
         try {
             scaner = new Scanner(f);
@@ -47,13 +48,11 @@ public class ProcessData {
                 classstr.append(line);
             }
             classstr.append('"');
-            getClassText(classstr);
+            setClassText(classstr);
             System.out.println(classstr);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-
         x_start = xstart;
         x_end = xend;
         x_change = xchange;
@@ -104,4 +103,37 @@ public class ProcessData {
             e.printStackTrace();
         }
     }
+
+    public static boolean IsValidClassFromFile(String classstr) {
+
+        JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
+        DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
+
+        JavaFileObject file = new JavaSourceFromString("test1", classstr);
+        System.out.println(file);
+
+        Iterable<? extends JavaFileObject> compilationUnits = Arrays.asList(file);
+        JavaCompiler.CompilationTask task = compiler.getTask(null, null, diagnostics, null, null, compilationUnits);
+
+        boolean success = task.call();
+        for (Diagnostic<?> diagnostic : diagnostics.getDiagnostics())
+            System.out.println(diagnostic);
+        System.out.println("Success: " + success);
+        return success;
+    }
+
+    static class JavaSourceFromString extends SimpleJavaFileObject {
+        final String code;
+
+        JavaSourceFromString(String name, String code) {
+            super(URI.create("string:///" + name.replace('.', '/') + Kind.SOURCE.extension), Kind.SOURCE);
+            this.code = code;
+        }
+
+        @Override
+        public CharSequence getCharContent(boolean ignoreEncodingErrors) {
+            return code;
+        }
+    }
+
 }
