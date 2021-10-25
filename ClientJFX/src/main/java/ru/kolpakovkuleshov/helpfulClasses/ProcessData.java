@@ -4,7 +4,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 
 public class ProcessData {
@@ -18,12 +22,38 @@ public class ProcessData {
     public static double t_end;
     public static double t_change;
     public static boolean checksize;
+    public static StringBuilder classText;
     public static List<List<List<Double>>> z;
     public static List<Double> t;
     public static List<Double> x;
     public static List<Double> y;
 
+    public static void getClassText(StringBuilder class_text){
+
+        classText =class_text;
+        Logs.writeLog(ProcessData.class, new Throwable().getStackTrace()[0].getMethodName(),
+                "Get class text", Level.INFO, true);
+    }
+
     public static void getStartData(double xstart, double xend, double xchange, double ystart, double yend, double ychange, double tstart, double tend, double tchange) {
+        File f = new File("C:\\Users\\kolpa\\IdeaProjects\\test1.java");
+        Scanner scaner = null;
+        try {
+            scaner = new Scanner(f);
+            StringBuilder classstr=new StringBuilder();
+            classstr.append('"');
+            while(scaner.hasNextLine()){
+                String line = scaner.nextLine();
+                classstr.append(line);
+            }
+            classstr.append('"');
+            getClassText(classstr);
+            System.out.println(classstr);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
         x_start = xstart;
         x_end = xend;
         x_change = xchange;
@@ -48,8 +78,10 @@ public class ProcessData {
         obj.put("t_start", t_start);
         obj.put("t_end", t_end);
         obj.put("t_change", t_change);
+        obj.put("classText",classText);
         Logs.writeLog(ProcessData.class, new Throwable().getStackTrace()[0].getMethodName(),
                 "Create request to server", Level.INFO, true);
+        System.out.println(obj.toJSONString());
         return obj.toJSONString();
     }
 

@@ -4,7 +4,6 @@ import java.io.*;
 import java.net.ServerSocket;
 
 public class Server {
-    //Egor
     public static void main(String[] args)  {
         try(ServerSocket server = new ServerSocket(8000)){
             System.out.println("Server created");

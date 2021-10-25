@@ -5,6 +5,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -13,9 +14,27 @@ public class DataOperations {
     private List<Double> y = new ArrayList<>();
     private List<Double> x = new ArrayList<>();
     private List<Double> t = new ArrayList<>();
+    private String classText;
     private boolean checksize = true;
 
+    public List<List<List<Double>>> ComputeFunction() {
+        List<List<List<Double>>> result=null;
+        try {
+            Class my = null;
+            my = test.getClassObject(classText);
+            Method m = my.getMethod("test", new Class[] { List.class, List.class,List.class });
+            Object o = my.newInstance();
+            result= (List<List<List<Double>>>) m.invoke(o, new Object[] { x, y, t });
+            System.out.println(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public void getAndSetData(String JSONdata) {
+        System.out.println("start get and set data");
         try {
             JSONParser parser = new JSONParser();
             JSONObject obj = (JSONObject) parser.parse(JSONdata);
@@ -28,6 +47,8 @@ public class DataOperations {
                     t_start = (double) obj.get("t_start"),
                     t_end = (double) obj.get("t_end"),
                     t_change = (double) obj.get("t_change");
+            classText = (String) obj.get("classText");
+            System.out.println(classText);
             for (double xyt = x_start; xyt <= x_end; xyt += x_change) {
                 x.add(Math.round(xyt * 10000) / 10000.0);
             }
@@ -48,9 +69,9 @@ public class DataOperations {
 
     }
 
-    public String workWithData(String data) {
+    public String workWithData(String data)  {
         getAndSetData(data);
-        List<List<List<Double>>> z = ComputeFunction.calculate(x, y, t);
+        List<List<List<Double>>> z = ComputeFunction();
         JSONArray resultMain = new JSONArray();
         for (int i = 0; i < z.size(); i++) {
             JSONArray result = new JSONArray();

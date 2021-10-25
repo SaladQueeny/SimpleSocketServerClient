@@ -71,7 +71,8 @@ public class PrimaryController {
             ProcessData.getDataFromJson(response);
             Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                     "Get correct data from server", Level.INFO, true);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             Alert a1 = new Alert(Alert.AlertType.ERROR);
             a1.setTitle("ERROR");
             a1.setContentText("Can't join to server!");
@@ -80,6 +81,9 @@ public class PrimaryController {
             e.printStackTrace();
             Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                     "Can't join to server", Level.SEVERE, true);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
