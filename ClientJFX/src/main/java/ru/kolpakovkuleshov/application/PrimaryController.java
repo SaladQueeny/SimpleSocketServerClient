@@ -8,13 +8,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.jzy3d.chart.AWTChart;
+import ru.kolpakovkuleshov.App;
 import ru.kolpakovkuleshov.helpfulClasses.Logs;
 import ru.kolpakovkuleshov.charts.Charts;
 import ru.kolpakovkuleshov.charts.JavaFXChartFactory;
@@ -61,6 +66,9 @@ public class PrimaryController {
 
     @FXML
     private TextField ystart;
+
+    @FXML
+    private Button change_path_button;
 
     private void sendRequestToServer() {
         Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
@@ -254,13 +262,27 @@ public class PrimaryController {
 
         });
 
+        change_path_button.setOnAction(actionEvent -> {
+            openNewScene(change_path_button, "first_scene");
+        });
+
         exit_button.setOnAction(event -> {
             Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                     "exit", Level.INFO, true);
             System.exit(0);
         });
 
-
     }
 
+    protected void openNewScene(Button button, String scene){
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(scene+ ".fxml"));
+            Parent root = null;
+            root = fxmlLoader.load();
+            Stage window=(Stage) button.getScene().getWindow();
+            window.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
