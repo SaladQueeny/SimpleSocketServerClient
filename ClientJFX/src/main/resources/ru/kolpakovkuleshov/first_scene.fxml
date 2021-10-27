@@ -9,28 +9,40 @@
 
 <AnchorPane prefHeight="128.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kolpakovkuleshov.application.FirstController">
    <children>
-      <Pane prefHeight="147.0" prefWidth="602.0">
+      <Pane prefHeight="237.0" prefWidth="602.0">
          <children>
-            <TextField fx:id="textFieldPath" layoutX="18.0" layoutY="49.0" prefHeight="38.0" prefWidth="564.0" />
-            <Text layoutX="153.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your path to the class:">
+            <TextField fx:id="textFieldPath" layoutX="20.0" layoutY="138.0" prefHeight="38.0" prefWidth="564.0" />
+            <Text layoutX="155.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your path to the class:">
                <font>
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button fx:id="start_path" layoutX="347.0" layoutY="95.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-radius: 100;" text="START">
+            <Button fx:id="start_path" layoutX="349.0" layoutY="184.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-radius: 100;" text="START">
                <font>
                   <Font size="17.0" />
                </font>
             </Button>
-            <Pane prefHeight="147.0" prefWidth="4.0" style="-fx-background-color: ACACAC;" />
-            <Pane layoutX="598.0" prefHeight="147.0" prefWidth="4.0" style="-fx-background-color: ACACAC;" />
-            <Pane layoutX="-10.0" layoutY="144.0" prefHeight="4.0" prefWidth="612.0" style="-fx-background-color: ACACAC;" />
+            <Pane prefHeight="236.0" prefWidth="4.0" style="-fx-background-color: ACACAC;" />
+            <Pane layoutX="598.0" prefHeight="236.0" prefWidth="4.0" style="-fx-background-color: ACACAC;" />
+            <Pane layoutX="-8.0" layoutY="233.0" prefHeight="4.0" prefWidth="610.0" style="-fx-background-color: ACACAC;" />
             <Pane layoutX="-5.0" prefHeight="4.0" prefWidth="606.0" style="-fx-background-color: ACACAC;" />
-            <Button fx:id="exit_path" layoutX="151.0" layoutY="95.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-radius: 100;" text="EXIT">
+            <Button fx:id="exit_path" layoutX="153.0" layoutY="184.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-radius: 100;" text="EXIT">
                <font>
                   <Font size="17.0" />
                </font>
             </Button>
+            <TextField fx:id="IPtextField" layoutX="148.0" layoutY="55.0" prefHeight="32.0" prefWidth="106.0" />
+            <TextField fx:id="PORTtextField" layoutX="344.0" layoutY="55.0" prefHeight="32.0" prefWidth="106.0" />
+            <Text layoutX="141.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your IP:" wrappingWidth="119.53125">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+            <Text layoutX="322.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your PORT:" wrappingWidth="150.53125">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
          </children>
       </Pane>
    </children>
