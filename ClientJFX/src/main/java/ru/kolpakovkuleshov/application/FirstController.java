@@ -20,6 +20,11 @@ import java.util.logging.Level;
 
 public class FirstController {
 
+    @FXML
+    private TextField IPtextField;
+
+    @FXML
+    private TextField PORTtextField;
 
     @FXML
     private Button start_path;
