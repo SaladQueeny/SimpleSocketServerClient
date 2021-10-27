@@ -4,16 +4,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ru.kolpakovkuleshov.App;
+import ru.kolpakovkuleshov.helpfulClasses.Logs;
 import ru.kolpakovkuleshov.helpfulClasses.ProcessData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 public class FirstController {
 
@@ -23,6 +26,9 @@ public class FirstController {
 
     @FXML
     private TextField textFieldPath;
+
+    @FXML
+    private Button exit_path;
 
     @FXML
     void initialize() {
@@ -41,13 +47,22 @@ public class FirstController {
                 e.printStackTrace();
             }
 
-            if(ProcessData.IsValidClassFromFile(classstr.toString())){
+            if(ProcessData.IsValidClassFromFile(classstr.toString()) && !(textFieldPath.getText().trim().equals(""))){
                 ProcessData.f = f;
                 openNewScene(start_path,"primary");
                 System.out.println("File good");
             }else{
-                System.out.println("File not good");
+                Alert a1 = new Alert(Alert.AlertType.ERROR);
+                a1.setTitle("ERROR");
+                a1.setContentText("File not good!");
+                a1.setHeaderText("Problem with file!");
+                a1.show();
+                //System.out.println("File not good");
             }
+        });
+
+        exit_path.setOnAction(event -> {
+            System.exit(0);
         });
     }
 

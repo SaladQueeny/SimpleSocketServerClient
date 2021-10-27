@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kolpakovkuleshov.application.PrimaryController">
    <children>
-      <Button fx:id="start_button" layoutX="125.0" layoutY="553.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" style="-fx-background-radius: 100; -fx-background-repeat: 15;" text="START">
+      <Button fx:id="start_button" layoutX="81.0" layoutY="535.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" style="-fx-background-radius: 100; -fx-background-repeat: 15;" text="START">
          <font>
             <Font size="18.0" />
          </font></Button>
@@ -85,5 +85,10 @@
       <Pane layoutX="268.0" layoutY="18.0" prefHeight="502.0" prefWidth="2.0" style="-fx-background-color: D8D8D8;" />
       <Pane layoutX="21.0" layoutY="17.0" prefHeight="502.0" prefWidth="2.0" style="-fx-background-color: D8D8D8;" />
       <Pane layoutX="22.0" layoutY="16.0" prefHeight="2.0" prefWidth="248.0" style="-fx-background-color: D8D8D8;" />
+      <Button fx:id="change_path_button" layoutX="159.0" layoutY="593.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" text="CHANGE PATH">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

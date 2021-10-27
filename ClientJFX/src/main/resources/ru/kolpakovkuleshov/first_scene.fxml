@@ -17,7 +17,7 @@
                   <Font size="24.0" />
                </font>
             </Text>
-            <Button fx:id="start_path" layoutX="253.0" layoutY="95.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-radius: 100;" text="START">
+            <Button fx:id="start_path" layoutX="347.0" layoutY="95.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-radius: 100;" text="START">
                <font>
                   <Font size="17.0" />
                </font>
@@ -26,6 +26,11 @@
             <Pane layoutX="598.0" prefHeight="147.0" prefWidth="4.0" style="-fx-background-color: ACACAC;" />
             <Pane layoutX="-10.0" layoutY="144.0" prefHeight="4.0" prefWidth="612.0" style="-fx-background-color: ACACAC;" />
             <Pane layoutX="-5.0" prefHeight="4.0" prefWidth="606.0" style="-fx-background-color: ACACAC;" />
+            <Button fx:id="exit_path" layoutX="151.0" layoutY="95.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="95.0" style="-fx-background-radius: 100;" text="EXIT">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
    </children>
