@@ -13,18 +13,18 @@ public class Server {
                 Generalities generalities = new Generalities(server);
                 new Thread(() -> {
                     System.out.println("New thread");
-                    try {
-                        Files.walk(Paths.get(""), 1)
-                                .forEach(file -> {
-                                    if (file.toFile().isFile() && file.toFile().getPath().endsWith(".class")) {
-                                        System.out.println(file.getFileName());
-                                        file.toFile().delete();
-                                        System.out.println("deleted");
-                                    }
-                                });
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        Files.walk(Paths.get(""), 1)
+//                                .forEach(file -> {
+//                                    if (file.toFile().isFile() && file.toFile().getPath().endsWith(".class")) {
+//                                        System.out.println(file.getFileName());
+//                                        file.toFile().delete();
+//                                        System.out.println("deleted");
+//                                    }
+//                                });
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
                     String request = generalities.readLine();
                     String response = null;
                     DataOperations dataOperations = new DataOperations();
