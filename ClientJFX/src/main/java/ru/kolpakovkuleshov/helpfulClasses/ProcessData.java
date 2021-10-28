@@ -23,6 +23,7 @@ public class ProcessData {
     public static double t_end;
     public static double t_change;
     public static boolean checksize;
+    public static String className;
     public static StringBuilder classText;
     public static List<List<List<Double>>> z;
     public static List<Double> t;
@@ -37,7 +38,6 @@ public class ProcessData {
     }
 
     public static void setStartData(double xstart, double xend, double xchange, double ystart, double yend, double ychange, double tstart, double tend, double tchange) {
-        f = new File("C:\\Users\\kolpa\\IdeaProjects\\test1.java");
         Scanner scaner = null;
         try {
             scaner = new Scanner(f);
@@ -78,6 +78,7 @@ public class ProcessData {
         obj.put("t_end", t_end);
         obj.put("t_change", t_change);
         obj.put("classText",classText);
+        obj.put("className", className);
         Logs.writeLog(ProcessData.class, new Throwable().getStackTrace()[0].getMethodName(),
                 "Create request to server", Level.INFO, true);
         System.out.println(obj.toJSONString());
@@ -104,12 +105,12 @@ public class ProcessData {
         }
     }
 
-    public static boolean IsValidClassFromFile(String classstr) {
+    public static boolean IsValidClassFromFile(String classstr, String className) {
 
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
 
-        JavaFileObject file = new JavaSourceFromString("test1", classstr);
+        JavaFileObject file = new JavaSourceFromString(className, classstr);
         System.out.println(file);
 
         Iterable<? extends JavaFileObject> compilationUnits = Arrays.asList(file);
@@ -135,5 +136,25 @@ public class ProcessData {
             return code;
         }
     }
+    static class MyClassLoader extends ClassLoader {
 
+        public Class getClassFromFile(File f) {
+            byte[] raw = new byte[(int) f.length()];
+            System.out.println(f.length());
+            InputStream in = null;
+            try {
+                in = new FileInputStream(f);
+                in.read(raw);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            try {
+                if (in != null)
+                    in.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return defineClass(null, raw, 0, raw.length);
+        }
+    }
 }

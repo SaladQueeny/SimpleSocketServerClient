@@ -1,6 +1,8 @@
 package ru.kolpakovkuleshov.application;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -261,14 +263,28 @@ public class PrimaryController {
             }
 
         });
-
         change_path_button.setOnAction(actionEvent -> {
             openNewScene(change_path_button, "first_scene");
         });
 
         exit_button.setOnAction(event -> {
+
             Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                     "exit", Level.INFO, true);
+
+            try {
+                Files.walk(Paths.get(""),1)
+                        .forEach(file -> {
+                            if(file.toFile().isFile() && file.toFile().getPath().endsWith(".class")){
+                                System.out.println(file.getFileName());
+                                file.toFile().delete();
+                                System.out.println("deleted");
+                            }
+                        });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             System.exit(0);
         });
 

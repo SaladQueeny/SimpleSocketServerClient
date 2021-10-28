@@ -11,8 +11,8 @@
    <children>
       <Pane prefHeight="237.0" prefWidth="602.0">
          <children>
-            <TextField fx:id="textFieldPath" layoutX="20.0" layoutY="138.0" prefHeight="38.0" prefWidth="564.0" />
-            <Text layoutX="155.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your path to the class:">
+            <TextField fx:id="textFieldPath" layoutX="13.0" layoutY="136.0" prefHeight="38.0" prefWidth="293.0" />
+            <Text layoutX="13.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter full path to your class:">
                <font>
                   <Font size="24.0" />
                </font>
@@ -33,16 +33,22 @@
             </Button>
             <TextField fx:id="IPtextField" layoutX="148.0" layoutY="55.0" prefHeight="32.0" prefWidth="106.0" />
             <TextField fx:id="PORTtextField" layoutX="344.0" layoutY="55.0" prefHeight="32.0" prefWidth="106.0" />
-            <Text layoutX="141.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your IP:" wrappingWidth="119.53125">
+            <Text layoutX="159.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter  IP:" wrappingWidth="84.53125">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="322.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your PORT:" wrappingWidth="150.53125">
+            <Text layoutX="339.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter PORT:" wrappingWidth="114.53125">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
+            <Text layoutX="322.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter name of your class:">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+            <TextField fx:id="textFieldClassName" layoutX="317.0" layoutY="136.0" prefHeight="38.0" prefWidth="274.0" />
          </children>
       </Pane>
    </children>

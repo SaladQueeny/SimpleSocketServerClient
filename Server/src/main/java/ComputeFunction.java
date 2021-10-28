@@ -1,8 +1,6 @@
-//import general.Logs;
 
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.logging.Level;
 
 public class ComputeFunction {
     public static List<List<List<Double>>> calculate(List<Double> x, List<Double> y, List<Double> t){
@@ -12,7 +10,6 @@ public class ComputeFunction {
             for(int i=0; i<x.size();i++){
                 List<Double> zy = new ArrayList<>();
                 for(int j=0; j<y.size();j++){
-                    //double value = ((x.get(i)*x.get(i))*(y.get(j)*y.get(j))+2.0);
                     double value = (Math.sin(x.get(i)*x.get(i)+y.get(j)*y.get(j))/(0.1+y.get(j)*y.get(j)+x.get(i)*x.get(i)));
                     zy.add(value);
                 }
@@ -20,8 +17,6 @@ public class ComputeFunction {
             }
             z.add(zx);
         }
-//        Logs.writeLog(ComputeFunction.class, new Throwable().getStackTrace()[0].getMethodName(),
-//                "Compute z", Level.INFO, true);
         return z;
     }
 }
