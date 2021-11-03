@@ -31,10 +31,13 @@ import ru.kolpakovkuleshov.helpfulClasses.ProcessData;
 public class PrimaryController {
 
     @FXML
+    private Button update_button;
+
+    @FXML
     private Slider slider_chart;
 
     @FXML
-    private Pane chart_pain;
+    private volatile Pane chart_pain;
 
     @FXML
     private Button exit_button;
@@ -72,13 +75,28 @@ public class PrimaryController {
     @FXML
     private Button change_path_button;
 
+    public String response;
+    public boolean checkcheck =true;
     private void sendRequestToServer() {
-        Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                "Send request to server", Level.INFO, true);
         try (Generalities generalities = new Generalities("127.0.0.1", 8000)) {
+            checkcheck=true;
             generalities.writeLine(ProcessData.createRequest());
-            String response = generalities.readLine();
-            ProcessData.getDataFromJson(response);
+            response = null;
+            response = generalities.readLine();
+            while(response!=null){
+                System.out.println("get z from server");
+                ProcessData.getDataFromJson(response);
+                if(checkcheck){
+                    initSlider();
+                    createCharts();
+                    chart_pain.getChildren().add(imageViewList.get(0));
+                    System.out.println("We get first data from server");
+                    //попытаться открыть доп окно с графиком
+                    checkcheck=false;
+                }
+                response = generalities.readLine();
+            }
+
             Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                     "Get correct data from server", Level.INFO, true);
         }
@@ -89,8 +107,6 @@ public class PrimaryController {
             a1.setHeaderText("Server error!");
             a1.show();
             e.printStackTrace();
-            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                    "Can't join to server", Level.SEVERE, true);
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -155,9 +171,9 @@ public class PrimaryController {
     }
 
     public void initSlider() {
-        slider_chart.setMin(ProcessData.t_start);
-        slider_chart.setMax(ProcessData.t_end);
-        slider_chart.setValue(ProcessData.t_start);
+        slider_chart.setMin(ProcessData.t.get(0));
+        slider_chart.setMax(ProcessData.t.get(ProcessData.t.size()-1));
+        slider_chart.setValue(ProcessData.t.get(0));
         slider_chart.setBlockIncrement(ProcessData.t_change);
         slider_chart.setSnapToTicks(true);
         slider_chart.setMajorTickUnit(ProcessData.t_change);
@@ -167,13 +183,24 @@ public class PrimaryController {
     }
 
     public boolean check = false;
-    List<ImageView> imageViewList = new ArrayList<>();
+    public volatile List<ImageView> imageViewList = new ArrayList<>();
     public double previous_T;
+
+    public void createCharts(){
+        Charts chart = new Charts();
+        JavaFXChartFactory factory = new JavaFXChartFactory();
+        List<AWTChart> chartsList = chart.getAWTCharts(factory, ProcessData.x, ProcessData.y, ProcessData.t, ProcessData.z);
+        chart_pain.getChildren().clear();
+        imageViewList.clear();
+        for (int i = 0; i < chartsList.size(); i++) {
+            ImageView imageView = factory.bindImageView(chartsList.get(i));
+            imageViewList.add(imageView);
+
+        }
+    }
 
     @FXML
     void initialize() {
-        Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                "Start initialization", Level.INFO, true);
         slider_chart.setOnMouseClicked(mouseEvent -> {
             check = true;
         });
@@ -183,15 +210,13 @@ public class PrimaryController {
         });
 
         slider_chart.setOnMouseReleased(mouseEvent -> {
-            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                    "Slider_charts moved", Level.INFO, true);
+
             if (check) {
                 Double currentT = slider_chart.getValue();
                 if (ProcessData.t.contains(currentT)) {
                     chart_pain.getChildren().clear();
                     chart_pain.getChildren().add(imageViewList.get(ProcessData.t.indexOf(currentT)));
-                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                            "Add charts with current_t", Level.WARNING, true);
+
                 } else {
                     //notification
                     Alert a1 = new Alert(Alert.AlertType.ERROR);
@@ -199,9 +224,9 @@ public class PrimaryController {
                     a1.setContentText("We don't have this T!");
                     a1.setHeaderText("Incorrect data!");
                     a1.show();
-                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                            "Can't add charts with current_t(don't have this t)", Level.WARNING, true);
+
                 }
+
                 if (previous_T != currentT) {
 
                 } else {
@@ -210,8 +235,7 @@ public class PrimaryController {
                     a1.setContentText("We have this T!");
                     a1.setHeaderText("Duplicate T!");
                     a1.show();
-                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                            "Add charts with current_t", Level.WARNING, true);
+
                 }
                 check = false;
                 previous_T = currentT;
@@ -224,20 +248,15 @@ public class PrimaryController {
                 getStartData();
                 //try {
                     sendRequestToServer();
-                    initSlider();
-                    Charts chart = new Charts();
-                    JavaFXChartFactory factory = new JavaFXChartFactory();
-                    List<AWTChart> chartsList = chart.getAWTCharts(factory, ProcessData.x, ProcessData.y, ProcessData.t, ProcessData.z);
-                    chart_pain.getChildren().clear();
-                    imageViewList.clear();
-                    for (int i = 0; i < chartsList.size(); i++) {
-                        ImageView imageView = factory.bindImageView(chartsList.get(i));
-                        imageViewList.add(imageView);
+                    //initSlider();
 
-                    }
-                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                            "successfully create all charts", Level.INFO, true);
-                    chart_pain.getChildren().add(imageViewList.get(0));
+                    //createCharts();
+
+                    //chart_pain.getChildren().add(imageViewList.get(0));
+
+//                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
+//                            "successfully create all charts", Level.INFO, true);
+
 //                } catch (IOException e) {
 //                    //notification
 //                    Alert a1 = new Alert(Alert.AlertType.ERROR);
@@ -258,19 +277,23 @@ public class PrimaryController {
                 a1.setContentText("The data entered is incorrect or there is not enough data!");
                 a1.setHeaderText("Incorrect data!");
                 a1.show();
-                Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                        "The data entered is incorrect or there is not enough data", Level.SEVERE, true);
+
             }
 
         });
+
+        update_button.setOnAction(event->{
+            initSlider();
+            createCharts();
+            chart_pain.getChildren().add(imageViewList.get(0));
+        });
+
+
         change_path_button.setOnAction(actionEvent -> {
             openNewScene(change_path_button, "first_scene");
         });
 
         exit_button.setOnAction(event -> {
-
-            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                    "exit", Level.INFO, true);
 
             try {
                 Files.walk(Paths.get(""),1)

@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import javax.tools.*;
 import java.io.*;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -24,6 +25,9 @@ public class ProcessData {
     public static double t_change;
     public static boolean checksize;
     public static String className;
+    public static List<Boolean> isCreated;
+    public static volatile int size_z=0;
+    public static volatile int size_t=10;
     public static StringBuilder classText;
     public static List<List<List<Double>>> z;
     public static List<Double> t;
@@ -62,6 +66,10 @@ public class ProcessData {
         t_start = tstart;
         t_end = tend;
         t_change = tchange;
+        isCreated = new ArrayList<>();
+        for(double i=t_start;i<=t_end;i+=t_change){
+            isCreated.add(false);
+        }
         Logs.writeLog(ProcessData.class, new Throwable().getStackTrace()[0].getMethodName(),
                 "Get start data", Level.INFO, true);
     }

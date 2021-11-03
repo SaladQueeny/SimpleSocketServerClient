@@ -1,3 +1,4 @@
+import general.Generalities;
 import general.Logs;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -12,21 +13,68 @@ import java.util.List;
 import java.util.logging.Level;
 
 public class DataOperations {
+    private static Generalities generalities;
     private List<Double> y = new ArrayList<>();
     private List<Double> x = new ArrayList<>();
     private List<Double> t = new ArrayList<>();
     private String classText;
     private String className;
-    private boolean checksize = true;
+    private static boolean checksize = true;
 
+    public DataOperations(Generalities general) {
+        this.generalities=general;
+    }
 
     public String checkConnection() {
         return "connection good";
     }
 
+    public static void callback(List<List<List<Double>>> z,List<Double> x,List<Double> y, List<Double> t) throws InterruptedException {
+        System.out.println("Callback in data operations");
+
+        String response = createJson(z,x,y,t);
+        //String response = "{\"t\":[1.0,2.0,3.0,4.0],\"x\":[1.0,2.0],\"checkSize\":true,\"y\":[1.0,2.0],\"z\":[[[0.432998774678896,-0.18802436758100755],[-0.18802436758100755,0.12214299341029405]],[[0.432998774678896,-0.18802436758100755],[-0.18802436758100755,0.12214299341029405]],[[0.432998774678896,-0.18802436758100755],[-0.18802436758100755,0.12214299341029405]],[[0.432998774678896,-0.18802436758100755],[-0.18802436758100755,0.12214299341029405]]]}";
+        generalities.writeLine(response);
+        Thread.sleep(5000);
+    }
+
+    public static String createJson(List<List<List<Double>>> z,List<Double> x,List<Double> y, List<Double> t){
+        JSONArray resultMain = new JSONArray();
+        for (int i = 0; i < z.size(); i++) {
+            JSONArray result = new JSONArray();
+            for (int j = 0; j < z.get(i).size(); j++) {
+                result.add(z.get(i).get(j));
+            }
+            resultMain.add(result);
+        }
+        JSONObject object = new JSONObject();
+        object.put("z", resultMain);
+
+        resultMain = new JSONArray();
+        for (int i = 0; i < z.size(); i++) {
+            resultMain.add(t.get(i));
+        }
+        object.put("t", resultMain);
+
+        resultMain = new JSONArray();
+        for (int i = 0; i < x.size(); i++) {
+            resultMain.add(x.get(i));
+        }
+        object.put("x", resultMain);
+
+        resultMain = new JSONArray();
+        for (int i = 0; i < y.size(); i++) {
+            resultMain.add(y.get(i));
+        }
+        object.put("y", resultMain);
+        object.put("checkSize", checksize);
+        return object.toJSONString();
+    }
+
     public String workWithData(String data) {
         getAndSetData(data);
-        List<List<List<Double>>> z = ComputeFunction();
+        //List<List<List<Double>>> z = ComputeFunction();
+        List<List<List<Double>>> z = ComputeFunction.calculate(x,y,t);
         JSONArray resultMain = new JSONArray();
         for (int i = 0; i < z.size(); i++) {
             JSONArray result = new JSONArray();
@@ -56,8 +104,6 @@ public class DataOperations {
         }
         object.put("y", resultMain);
         object.put("checkSize", checksize);
-        Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                "Create request to client with lists of x, y, t, z", Level.INFO, true);
         return object.toJSONString();
     }
 

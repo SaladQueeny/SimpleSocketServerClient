@@ -18,6 +18,8 @@ public class ProcessData {
     public static List<Double> t;
     public static List<Double> x;
     public static List<Double> y;
+    public static volatile int size_z=0;
+    public static volatile int size_t=10;
 
     public static void getStartData(){
         x_start=0.1;
@@ -27,7 +29,7 @@ public class ProcessData {
         y_end=0.5;
         y_change=0.1;
         t_start=1;
-        t_end=2;
+        t_end=5;
         t_change=1;
     }
     public static String createRequest(){
