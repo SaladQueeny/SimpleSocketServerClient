@@ -10,7 +10,7 @@
 
 <AnchorPane prefHeight="650.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ru.kolpakovkuleshov.application.PrimaryController">
    <children>
-      <Button fx:id="start_button" layoutX="81.0" layoutY="535.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" style="-fx-background-radius: 100; -fx-background-repeat: 15;" text="START">
+      <Button fx:id="start_button" layoutX="139.0" layoutY="534.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="130.0" style="-fx-background-radius: 100; -fx-background-repeat: 15;" text="START">
          <font>
             <Font size="18.0" />
          </font></Button>
@@ -88,6 +88,11 @@
       <Button fx:id="change_path_button" layoutX="159.0" layoutY="593.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="112.0" text="CHANGE PATH">
          <font>
             <Font size="13.0" />
+         </font>
+      </Button>
+      <Button fx:id="update_button" layoutX="23.0" layoutY="535.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="106.0" style="-fx-background-radius: 100; -fx-background-repeat: 15;" text="UPDATE">
+         <font>
+            <Font size="18.0" />
          </font>
       </Button>
    </children>

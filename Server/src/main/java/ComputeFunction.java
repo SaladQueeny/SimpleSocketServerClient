@@ -16,6 +16,14 @@ public class ComputeFunction {
                 zx.add(zy);
             }
             z.add(zx);
+            if(k%2==1){
+                System.out.println("Callback");
+                try {
+                    DataOperations.callback(z,x,y,t);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return z;
     }

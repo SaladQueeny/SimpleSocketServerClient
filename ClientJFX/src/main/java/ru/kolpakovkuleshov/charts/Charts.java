@@ -31,12 +31,15 @@ public class Charts {
         this.z = z;
 
         List<AWTChart> chart = new ArrayList<>();
-        System.out.println(t.size() + " " + z.size() + " " + z.get(0).size() + " " + x.size() + " " + y.size());
         for (int i = 0; i < t.size(); i++) {
-            System.out.println("create charts");
-            AWTChart awtchart = getDemoChart(factory, t.get(i), "offscreen");
-            factory.resetSize(awtchart, 620, 590);
-            chart.add(awtchart);
+            if(!ProcessData.isCreated.get(i)){
+                System.out.println("create chart №"+i);
+                AWTChart awtchart = getDemoChart(factory, t.get(i), "offscreen");
+                factory.resetSize(awtchart, 620, 590);
+                chart.add(awtchart);
+                ProcessData.isCreated.set(i,true);
+            }
+
         }
         Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                 "Create charts list", Level.INFO, true);

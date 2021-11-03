@@ -27,7 +27,7 @@ public class Server {
 //                    }
                     String request = generalities.readLine();
                     String response = null;
-                    DataOperations dataOperations = new DataOperations();
+                    DataOperations dataOperations = new DataOperations(generalities);
                     System.out.println("Request: " + request);
                     if (request.equals("check connection")) {
                         response = dataOperations.checkConnection();
