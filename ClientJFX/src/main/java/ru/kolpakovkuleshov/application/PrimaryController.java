@@ -9,16 +9,18 @@ import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.application.Platform;
+import javafx.concurrent.Service;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jzy3d.chart.AWTChart;
 import ru.kolpakovkuleshov.App;
@@ -77,40 +79,27 @@ public class PrimaryController {
 
     public String response;
     public boolean checkcheck =true;
-    private void sendRequestToServer() {
-        try (Generalities generalities = new Generalities("127.0.0.1", 8000)) {
-            checkcheck=true;
-            generalities.writeLine(ProcessData.createRequest());
-            response = null;
-            response = generalities.readLine();
-            while(response!=null){
-                System.out.println("get z from server");
-                ProcessData.getDataFromJson(response);
-                if(checkcheck){
-                    initSlider();
-                    createCharts();
-                    chart_pain.getChildren().add(imageViewList.get(0));
-                    System.out.println("We get first data from server");
-                    //попытаться открыть доп окно с графиком
-                    checkcheck=false;
-                }
-                response = generalities.readLine();
-            }
 
-            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                    "Get correct data from server", Level.INFO, true);
-        }
-        catch (IOException e) {
-            Alert a1 = new Alert(Alert.AlertType.ERROR);
-            a1.setTitle("ERROR");
-            a1.setContentText("Can't join to server!");
-            a1.setHeaderText("Server error!");
-            a1.show();
-            e.printStackTrace();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void sendRequestToServer() {
+        Task task = new Task<Void>() {
+            @Override
+            public Void call(){
+                Generalities generalities = new Generalities("127.0.0.1", 8000);
+                String request = ProcessData.createRequest();
+                generalities.writeLine(request);
+                response = null;
+
+                checkcheck = true;
+                response = generalities.readLine();
+                while(response!=null){
+                    ProcessData.getDataFromJson(response);
+                    response = generalities.readLine();
+                }
+                return null;
+            }
+        };
+        new Thread(task).start();
+
     }
 
     private boolean isGoodData() {
@@ -218,7 +207,6 @@ public class PrimaryController {
                     chart_pain.getChildren().add(imageViewList.get(ProcessData.t.indexOf(currentT)));
 
                 } else {
-                    //notification
                     Alert a1 = new Alert(Alert.AlertType.ERROR);
                     a1.setTitle("ERROR");
                     a1.setContentText("We don't have this T!");
@@ -246,30 +234,7 @@ public class PrimaryController {
 
             if (isGoodData()) {
                 getStartData();
-                //try {
-                    sendRequestToServer();
-                    //initSlider();
-
-                    //createCharts();
-
-                    //chart_pain.getChildren().add(imageViewList.get(0));
-
-//                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-//                            "successfully create all charts", Level.INFO, true);
-
-//                } catch (IOException e) {
-//                    //notification
-//                    Alert a1 = new Alert(Alert.AlertType.ERROR);
-//                    a1.setTitle("ERROR");
-//                    a1.setContentText("Can't join to server!");
-//                    a1.setHeaderText("Server error!");
-//                    a1.show();
-//                    System.out.println("Something wrong with server");
-//                    e.printStackTrace();
-//                    Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-//                            "successfully create all charts", Level.INFO, true);
-//                }
-                System.out.println("We got your data");
+                sendRequestToServer();
             } else {
                 //notification
                 Alert a1 = new Alert(Alert.AlertType.ERROR);
@@ -283,9 +248,11 @@ public class PrimaryController {
         });
 
         update_button.setOnAction(event->{
-            initSlider();
-            createCharts();
-            chart_pain.getChildren().add(imageViewList.get(0));
+            if(ProcessData.isCreated.get(ProcessData.isCreated.size()-1)!=true){
+                initSlider();
+                createCharts();
+                chart_pain.getChildren().add(imageViewList.get(0));
+            }
         });
 
 

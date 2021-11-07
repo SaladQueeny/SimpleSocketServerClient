@@ -33,7 +33,6 @@ public class DataOperations {
         System.out.println("Callback in data operations");
 
         String response = createJson(z,x,y,t);
-        //String response = "{\"t\":[1.0,2.0,3.0,4.0],\"x\":[1.0,2.0],\"checkSize\":true,\"y\":[1.0,2.0],\"z\":[[[0.432998774678896,-0.18802436758100755],[-0.18802436758100755,0.12214299341029405]],[[0.432998774678896,-0.18802436758100755],[-0.18802436758100755,0.12214299341029405]],[[0.432998774678896,-0.18802436758100755],[-0.18802436758100755,0.12214299341029405]],[[0.432998774678896,-0.18802436758100755],[-0.18802436758100755,0.12214299341029405]]]}";
         generalities.writeLine(response);
         Thread.sleep(5000);
     }
@@ -73,7 +72,6 @@ public class DataOperations {
 
     public String workWithData(String data) {
         getAndSetData(data);
-        //List<List<List<Double>>> z = ComputeFunction();
         List<List<List<Double>>> z = ComputeFunction.calculate(x,y,t);
         JSONArray resultMain = new JSONArray();
         for (int i = 0; i < z.size(); i++) {
