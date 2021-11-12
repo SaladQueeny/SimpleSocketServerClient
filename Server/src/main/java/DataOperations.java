@@ -72,7 +72,8 @@ public class DataOperations {
 
     public String workWithData(String data) {
         getAndSetData(data);
-        List<List<List<Double>>> z = ComputeFunction.calculate(x,y,t);
+        //List<List<List<Double>>> z = ComputeFunction.calculate(x,y,t);
+        List<List<List<Double>>> z = ComputeFunction();
         JSONArray resultMain = new JSONArray();
         for (int i = 0; i < z.size(); i++) {
             JSONArray result = new JSONArray();

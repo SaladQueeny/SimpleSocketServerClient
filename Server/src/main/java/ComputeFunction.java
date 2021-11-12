@@ -17,7 +17,6 @@ public class ComputeFunction {
             }
             z.add(zx);
             if(k%2==1){
-                System.out.println("Callback");
                 try {
                     DataOperations.callback(z,x,y,t);
                 } catch (InterruptedException e) {
