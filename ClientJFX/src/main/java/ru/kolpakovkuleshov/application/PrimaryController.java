@@ -78,12 +78,12 @@ public class PrimaryController {
     private Button change_path_button;
 
     public String response;
-    public boolean checkcheck =true;
+    public boolean checkcheck = true;
 
     private void sendRequestToServer() {
         Task task = new Task<Void>() {
             @Override
-            public Void call(){
+            public Void call() {
                 Generalities generalities = new Generalities("127.0.0.1", 8000);
                 String request = ProcessData.createRequest();
                 generalities.writeLine(request);
@@ -91,7 +91,8 @@ public class PrimaryController {
 
                 checkcheck = true;
                 response = generalities.readLine();
-                while(response!=null){
+                while (response != null) {
+                    System.out.println("get callback");
                     ProcessData.getDataFromJson(response);
                     response = generalities.readLine();
                 }
@@ -161,7 +162,7 @@ public class PrimaryController {
 
     public void initSlider() {
         slider_chart.setMin(ProcessData.t.get(0));
-        slider_chart.setMax(ProcessData.t.get(ProcessData.t.size()-1));
+        slider_chart.setMax(ProcessData.t.get(ProcessData.t.size() - 1));
         slider_chart.setValue(ProcessData.t.get(0));
         slider_chart.setBlockIncrement(ProcessData.t_change);
         slider_chart.setSnapToTicks(true);
@@ -174,13 +175,18 @@ public class PrimaryController {
     public boolean check = false;
     public volatile List<ImageView> imageViewList = new ArrayList<>();
     public double previous_T;
+    public boolean suicide = true;
 
-    public void createCharts(){
+    public void createCharts() {
         Charts chart = new Charts();
         JavaFXChartFactory factory = new JavaFXChartFactory();
         List<AWTChart> chartsList = chart.getAWTCharts(factory, ProcessData.x, ProcessData.y, ProcessData.t, ProcessData.z);
-        chart_pain.getChildren().clear();
-        imageViewList.clear();
+        if (suicide) {
+            chart_pain.getChildren().clear();
+            imageViewList.clear();
+            suicide = false;
+        }
+
         for (int i = 0; i < chartsList.size(); i++) {
             ImageView imageView = factory.bindImageView(chartsList.get(i));
             imageViewList.add(imageView);
@@ -231,7 +237,6 @@ public class PrimaryController {
 
         });
         start_button.setOnAction(event -> {
-
             if (isGoodData()) {
                 getStartData();
                 sendRequestToServer();
@@ -242,15 +247,14 @@ public class PrimaryController {
                 a1.setContentText("The data entered is incorrect or there is not enough data!");
                 a1.setHeaderText("Incorrect data!");
                 a1.show();
-
             }
-
         });
 
-        update_button.setOnAction(event->{
-            if(ProcessData.isCreated.get(ProcessData.isCreated.size()-1)!=true){
+        update_button.setOnAction(event -> {
+            if (ProcessData.isCreated.get(ProcessData.isCreated.size() - 1) != true) {
                 initSlider();
                 createCharts();
+                chart_pain.getChildren().clear();
                 chart_pain.getChildren().add(imageViewList.get(0));
             }
         });
@@ -261,11 +265,10 @@ public class PrimaryController {
         });
 
         exit_button.setOnAction(event -> {
-
             try {
-                Files.walk(Paths.get(""),1)
+                Files.walk(Paths.get(""), 1)
                         .forEach(file -> {
-                            if(file.toFile().isFile() && file.toFile().getPath().endsWith(".class")){
+                            if (file.toFile().isFile() && file.toFile().getPath().endsWith(".class")) {
                                 System.out.println(file.getFileName());
                                 file.toFile().delete();
                                 System.out.println("deleted");
@@ -280,12 +283,12 @@ public class PrimaryController {
 
     }
 
-    protected void openNewScene(Button button, String scene){
+    protected void openNewScene(Button button, String scene) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(scene+ ".fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(scene + ".fxml"));
             Parent root = null;
             root = fxmlLoader.load();
-            Stage window=(Stage) button.getScene().getWindow();
+            Stage window = (Stage) button.getScene().getWindow();
             window.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();

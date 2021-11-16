@@ -29,7 +29,7 @@ public class Charts {
         this.y = y;
         this.t = t;
         this.z = z;
-
+        //System.out.println(ProcessData.isCreated);
         List<AWTChart> chart = new ArrayList<>();
         for (int i = 0; i < t.size(); i++) {
             if(!ProcessData.isCreated.get(i)){

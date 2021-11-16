@@ -25,7 +25,7 @@ public class ProcessData {
     public static double t_change;
     public static boolean checksize;
     public static String className;
-    public static List<Boolean> isCreated;
+    public static volatile List<Boolean> isCreated;
     public static volatile int size_z=0;
     public static volatile int size_t=10;
     public static StringBuilder classText;
