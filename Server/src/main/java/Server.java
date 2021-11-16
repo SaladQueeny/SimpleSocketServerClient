@@ -24,7 +24,7 @@ public class Server {
 //                                });
 //                    } catch (IOException e) {
 //                        e.printStackTrace();
-//                    }
+//                    }////m,m,m,m,m,m
                     String request = generalities.readLine();
                     String response = null;
                     DataOperations dataOperations = new DataOperations(generalities);
