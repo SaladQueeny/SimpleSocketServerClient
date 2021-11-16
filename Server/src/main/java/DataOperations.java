@@ -7,6 +7,7 @@ import org.json.simple.parser.ParseException;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,19 @@ public class DataOperations {
 
     public String workWithData(String data) {
         getAndSetData(data);
-        //List<List<List<Double>>> z = ComputeFunction.calculate(x,y,t);
+//        List<List<List<Double>>> z = null;
+//        try {
+//            ComputeFunction computeFunction = new ComputeFunction();
+//            z = computeFunction.calculate(x,y,t, DataOperations.class.getMethod("callback", List.class, List.class, List.class, List.class), this.getClass());
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        }
         List<List<List<Double>>> z = ComputeFunction();
         JSONArray resultMain = new JSONArray();
         for (int i = 0; i < z.size(); i++) {
@@ -146,9 +159,9 @@ public class DataOperations {
         List<List<List<Double>>> result = null;
         try {
             Class my = test.getClassObject(classText, className);
-            Method m = my.getMethod("test", new Class[]{List.class, List.class, List.class});
+            Method m = my.getMethod("test", new Class[]{List.class, List.class, List.class, Method.class});
             Object o = my.newInstance();
-            result = (List<List<List<Double>>>) m.invoke(o, new Object[]{x, y, t});
+            result = (List<List<List<Double>>>) m.invoke(o, new Object[]{x, y, t, DataOperations.class.getMethod("callback", List.class, List.class, List.class, List.class)});
             System.out.println(result);
         } catch (Exception e) {
             e.printStackTrace();
