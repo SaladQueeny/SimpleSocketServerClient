@@ -9,8 +9,7 @@ import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javafx.application.Platform;
-import javafx.concurrent.Service;
+import java.lang.Object;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.jzy3d.chart.AWTChart;
 import ru.kolpakovkuleshov.App;
@@ -178,19 +175,19 @@ public class PrimaryController {
     public boolean suicide = true;
 
     public void createCharts() {
+
         Charts chart = new Charts();
         JavaFXChartFactory factory = new JavaFXChartFactory();
         List<AWTChart> chartsList = chart.getAWTCharts(factory, ProcessData.x, ProcessData.y, ProcessData.t, ProcessData.z);
-        if (suicide) {
+        //if (suicide) {
             chart_pain.getChildren().clear();
             imageViewList.clear();
             suicide = false;
-        }
+       // }
 
         for (int i = 0; i < chartsList.size(); i++) {
             ImageView imageView = factory.bindImageView(chartsList.get(i));
             imageViewList.add(imageView);
-
         }
     }
 
