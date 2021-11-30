@@ -4,6 +4,7 @@ import org.jzy3d.chart.AWTChart;
 import org.jzy3d.colors.Color;
 import org.jzy3d.colors.ColorMapper;
 import org.jzy3d.colors.colormaps.ColorMapRainbow;
+import org.jzy3d.maths.Coord3d;
 import org.jzy3d.maths.Range;
 import org.jzy3d.plot3d.builder.Builder;
 import org.jzy3d.plot3d.builder.Mapper;
@@ -36,6 +37,7 @@ public class Charts {
                 System.out.println("create chart №"+i);
                 AWTChart awtchart = getDemoChart(factory, t.get(i), "offscreen");
                 factory.resetSize(awtchart, 620, 590);
+                //awtchart.setViewPoint(new Coord3d());
                 chart.add(awtchart);
                 ProcessData.isCreated.set(i,true);
             }
@@ -61,15 +63,19 @@ public class Charts {
 
         Range range ;//= new Range(x.get(0).floatValue(), x.get(x.size() - 1).floatValue());
         int steps ;
-        if (x.size()<y.size()){
-            steps = x.size();
-            range = new Range(x.get(0).floatValue(), x.get(x.size() - 1).floatValue());
-        }else{
-            steps = y.size();
-            range = new Range(y.get(0).floatValue(), y.get(y.size() - 1).floatValue());
-        }
+        int xsteps = x.size();
+        Range xrange = new Range(x.get(0).floatValue(), x.get(x.size() - 1).floatValue());
+        int ysteps = y.size();
+        Range yrange = new Range(y.get(0).floatValue(), y.get(y.size() - 1).floatValue());
+//        if (x.size()<y.size()){
+//            steps = x.size();
+//            range = new Range(x.get(0).floatValue(), x.get(x.size() - 1).floatValue());
+//        }else{
+//            steps = y.size();
+//            range = new Range(y.get(0).floatValue(), y.get(y.size() - 1).floatValue());
+//        }
 
-        final Shape surface = Builder.buildOrthonormal(mapper, range, steps);
+        final Shape surface = MyBuilder.buildOrthonormal(mapper, xrange, xsteps, yrange, ysteps);
         surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), surface.getBounds().getZmin(), surface.getBounds().getZmax(), new Color(1, 1, 1, .5f)));
         surface.setFaceDisplayed(true);
         surface.setWireframeDisplayed(false);
