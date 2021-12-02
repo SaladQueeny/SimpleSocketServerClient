@@ -1,44 +1,40 @@
 import general.Generalities;
-import general.Logs;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 public class DataOperations {
     private static Generalities generalities;
     private List<Double> y = new ArrayList<>();
     private List<Double> x = new ArrayList<>();
     private List<Double> t = new ArrayList<>();
+    private double dx;
+    private double dy;
     private String classText;
     private String className;
     private static boolean checksize = true;
 
     public DataOperations(Generalities general) {
-        this.generalities=general;
+        this.generalities = general;
     }
 
     public String checkConnection() {
         return "connection good";
     }
 
-    public static void callback(List<List<List<Double>>> z,List<Double> x,List<Double> y, List<Double> t) throws InterruptedException {
+    public static void callback(List<List<List<Double>>> z, List<Double> x, List<Double> y, List<Double> t) throws InterruptedException {
         System.out.println("Callback in data operations");
 
-        String response = createJson(z,x,y,t);
+        String response = createJson(z, x, y, t);
         generalities.writeLine(response);
         Thread.sleep(5000);
     }
 
-    public static String createJson(List<List<List<Double>>> z,List<Double> x,List<Double> y, List<Double> t){
+    public static String createJson(List<List<List<Double>>> z, List<Double> x, List<Double> y, List<Double> t) {
         JSONArray resultMain = new JSONArray();
         for (int i = 0; i < z.size(); i++) {
             JSONArray result = new JSONArray();
@@ -132,9 +128,13 @@ public class DataOperations {
                     y_change = (double) obj.get("y_change"),
                     t_start = (double) obj.get("t_start"),
                     t_end = (double) obj.get("t_end"),
-                    t_change = (double) obj.get("t_change");
+                    t_change = (double) obj.get("t_change"),
+                    d_x = (double) obj.get("d_x"),
+                    d_y = (double) obj.get("d_y");
             classText = (String) obj.get("classText");
             className = (String) obj.get("className");
+            dx = d_x;
+            dy = d_y;
             for (double xyt = x_start; xyt <= x_end; xyt += x_change) {
                 x.add(Math.round(xyt * 10000) / 10000.0);
             }
@@ -147,8 +147,6 @@ public class DataOperations {
             if (x.size() != y.size()) {
                 checksize = false;
             }
-            Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
-                    "Compute all lists (x,y,t)", Level.INFO, true);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -159,9 +157,10 @@ public class DataOperations {
         List<List<List<Double>>> result = null;
         try {
             Class my = test.getClassObject(classText, className);
-            Method m = my.getMethod("test", new Class[]{List.class, List.class, List.class, Method.class});
+            Method m = my.getMethod("test", new Class[]{List.class, List.class, List.class, double.class, double.class, Method.class});
             Object o = my.newInstance();
-            result = (List<List<List<Double>>>) m.invoke(o, new Object[]{x, y, t, DataOperations.class.getMethod("callback", List.class, List.class, List.class, List.class)});
+            result = (List<List<List<Double>>>) m.invoke(o, new Object[]{x, y, t, dx, dy,
+                    DataOperations.class.getMethod("callback", List.class, List.class, List.class, List.class)});
             System.out.println(result);
         } catch (Exception e) {
             e.printStackTrace();
