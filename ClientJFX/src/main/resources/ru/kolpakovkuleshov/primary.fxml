@@ -14,11 +14,11 @@
          <font>
             <Font size="18.0" />
          </font></Button>
-      <TextField layoutX="109.0" layoutY="85.0" style="-fx-background-radius: 0;" fx:id="xend" />
-      <TextField layoutX="109.0" layoutY="131.0" style="-fx-background-radius: 0;" fx:id="xchange" />
-      <TextField fx:id="ystart" layoutX="109.0" layoutY="206.0" style="-fx-background-radius: 0;" />
-      <TextField fx:id="yend" layoutX="109.0" layoutY="254.0" style="-fx-background-radius: 0;" />
-      <TextField fx:id="ychange" layoutX="109.0" layoutY="300.0" style="-fx-background-radius: 0;" />
+      <TextField layoutX="113.0" layoutY="72.0" style="-fx-background-radius: 0;" fx:id="xend" />
+      <TextField layoutX="113.0" layoutY="109.0" style="-fx-background-radius: 0;" fx:id="xchange" />
+      <TextField fx:id="ystart" layoutX="113.0" layoutY="205.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="yend" layoutX="113.0" layoutY="244.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="ychange" layoutX="113.0" layoutY="281.0" style="-fx-background-radius: 0;" />
       <TextField fx:id="tstart" layoutX="109.0" layoutY="373.0" style="-fx-background-radius: 0;" />
       <TextField fx:id="tend" layoutX="109.0" layoutY="421.0" style="-fx-background-radius: 0;" />
       <TextField fx:id="tchange" layoutX="109.0" layoutY="467.0" style="-fx-background-radius: 0;" />
@@ -27,27 +27,27 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xend" wrappingWidth="47.580078125">
+      <Text layoutX="52.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xend" wrappingWidth="47.580078125">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="31.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xchange" wrappingWidth="68.580078125">
+      <Text layoutX="37.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xchange" wrappingWidth="68.580078125">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ystart" wrappingWidth="47.580078125">
+      <Text layoutX="52.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ystart" wrappingWidth="47.580078125">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Yend" wrappingWidth="47.580078125">
+      <Text layoutX="52.0" layoutY="263.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Yend" wrappingWidth="47.580078125">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="31.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ychange" wrappingWidth="68.580078125">
+      <Text layoutX="37.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ychange" wrappingWidth="68.580078125">
          <font>
             <Font size="18.0" />
          </font>
@@ -67,7 +67,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <TextField layoutX="109.0" layoutY="38.0" style="-fx-background-radius: 0;" fx:id="xstart" />
+      <TextField layoutX="113.0" layoutY="36.0" style="-fx-background-radius: 0;" fx:id="xstart" />
       <Button fx:id="exit_button" layoutX="31.0" layoutY="593.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="81.0" text="EXIT">
          <font>
             <Font size="13.0" />
@@ -95,5 +95,17 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <TextField fx:id="dy" layoutX="113.0" layoutY="313.0" style="-fx-background-radius: 0;" />
+      <Text layoutX="56.0" layoutY="332.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dY" wrappingWidth="30.6884765625">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="dx" layoutX="113.0" layoutY="145.0" style="-fx-background-radius: 0;" />
+      <Text layoutX="61.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dX" wrappingWidth="30.6884765625">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

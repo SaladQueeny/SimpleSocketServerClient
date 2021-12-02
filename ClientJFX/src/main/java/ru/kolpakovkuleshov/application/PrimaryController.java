@@ -9,7 +9,6 @@ import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import java.lang.Object;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +27,12 @@ import ru.kolpakovkuleshov.helpfulClasses.Generalities;
 import ru.kolpakovkuleshov.helpfulClasses.ProcessData;
 
 public class PrimaryController {
+
+    @FXML
+    private TextField dx;
+
+    @FXML
+    private TextField dy;
 
     @FXML
     private Button update_button;
@@ -130,6 +135,14 @@ public class PrimaryController {
                                         match = p.matcher(tchange.getText().trim());
                                         if (match.matches()) {
                                             check++;
+                                            match = p.matcher(dx.getText().trim());
+                                            if(match.matches()){
+                                                check++;
+                                                match = p.matcher(dy.getText().trim());
+                                                if(match.matches()){
+                                                    check++;
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -141,7 +154,7 @@ public class PrimaryController {
         }
         Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                 "Check correct data", Level.SEVERE, true);
-        if (check == 9) {
+        if (check == 11) {
             return true;
         } else {
             return false;
@@ -150,9 +163,17 @@ public class PrimaryController {
     }
 
     private void getStartData() {
-        ProcessData.setStartData(Double.parseDouble(xstart.getText().trim()), Double.parseDouble(xend.getText().trim()), Double.parseDouble(xchange.getText().trim()),
-                Double.parseDouble(ystart.getText().trim()), Double.parseDouble(yend.getText().trim()), Double.parseDouble(ychange.getText().trim()),
-                Double.parseDouble(tstart.getText().trim()), Double.parseDouble(tend.getText().trim()), Double.parseDouble(tchange.getText().trim()));
+        ProcessData.setStartData(Double.parseDouble(xstart.getText().trim()),
+                Double.parseDouble(xend.getText().trim()),
+                Double.parseDouble(xchange.getText().trim()),
+                Double.parseDouble(ystart.getText().trim()),
+                Double.parseDouble(yend.getText().trim()),
+                Double.parseDouble(ychange.getText().trim()),
+                Double.parseDouble(tstart.getText().trim()),
+                Double.parseDouble(tend.getText().trim()),
+                Double.parseDouble(tchange.getText().trim()),
+                Double.parseDouble(dx.getText().trim()),
+                Double.parseDouble(dy.getText().trim()));
         Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                 "Got start data", Level.SEVERE, true);
     }

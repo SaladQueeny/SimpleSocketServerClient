@@ -23,11 +23,13 @@ public class ProcessData {
     public static double t_start;
     public static double t_end;
     public static double t_change;
+    public static double d_x;
+    public static double d_y;
     public static boolean checksize;
     public static String className;
     public static volatile List<Boolean> isCreated;
-    public static volatile int size_z=0;
-    public static volatile int size_t=10;
+    public static volatile int size_z = 0;
+    public static volatile int size_t = 10;
     public static StringBuilder classText;
     public static List<List<List<Double>>> z;
     public static List<Double> t;
@@ -35,19 +37,19 @@ public class ProcessData {
     public static List<Double> y;
     public static File f;
 
-    public static void setClassText(StringBuilder class_text){
-        classText =class_text;
+    public static void setClassText(StringBuilder class_text) {
+        classText = class_text;
         Logs.writeLog(ProcessData.class, new Throwable().getStackTrace()[0].getMethodName(),
                 "Get class text", Level.INFO, true);
     }
 
-    public static void setStartData(double xstart, double xend, double xchange, double ystart, double yend, double ychange, double tstart, double tend, double tchange) {
+    public static void setStartData(double xstart, double xend, double xchange, double ystart, double yend, double ychange, double tstart, double tend, double tchange, double dx, double dy) {
         Scanner scaner = null;
         try {
             scaner = new Scanner(f);
-            StringBuilder classstr=new StringBuilder();
+            StringBuilder classstr = new StringBuilder();
             classstr.append('"');
-            while(scaner.hasNextLine()){
+            while (scaner.hasNextLine()) {
                 String line = scaner.nextLine();
                 classstr.append(line);
             }
@@ -66,8 +68,10 @@ public class ProcessData {
         t_start = tstart;
         t_end = tend;
         t_change = tchange;
+        d_x = dx;
+        d_y = dy;
         isCreated = new ArrayList<>();
-        for(double i=t_start;i<=t_end;i+=t_change){
+        for (double i = t_start; i <= t_end; i += t_change) {
             isCreated.add(false);
         }
         Logs.writeLog(ProcessData.class, new Throwable().getStackTrace()[0].getMethodName(),
@@ -85,8 +89,10 @@ public class ProcessData {
         obj.put("t_start", t_start);
         obj.put("t_end", t_end);
         obj.put("t_change", t_change);
-        obj.put("classText",classText);
+        obj.put("classText", classText);
         obj.put("className", className);
+        obj.put("d_x", d_x);
+        obj.put("d_y", d_y);
         Logs.writeLog(ProcessData.class, new Throwable().getStackTrace()[0].getMethodName(),
                 "Create request to server", Level.INFO, true);
         System.out.println(obj.toJSONString());
@@ -144,6 +150,7 @@ public class ProcessData {
             return code;
         }
     }
+
     static class MyClassLoader extends ClassLoader {
 
         public Class getClassFromFile(File f) {
