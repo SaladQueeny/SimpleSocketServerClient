@@ -157,7 +157,7 @@ public class DataOperations {
         List<List<List<Double>>> result = null;
         try {
             Class my = test.getClassObject(classText, className);
-            Method m = my.getMethod("test", new Class[]{List.class, List.class, List.class, double.class, double.class, Method.class});
+            Method m = my.getMethod("compute", new Class[]{List.class, List.class, List.class, double.class, double.class, Method.class});
             Object o = my.newInstance();
             result = (List<List<List<Double>>>) m.invoke(o, new Object[]{x, y, t, dx, dy,
                     DataOperations.class.getMethod("callback", List.class, List.class, List.class, List.class)});
