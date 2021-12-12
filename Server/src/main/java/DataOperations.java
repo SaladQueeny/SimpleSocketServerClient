@@ -14,6 +14,7 @@ public class DataOperations {
     private List<Double> t = new ArrayList<>();
     private double dx;
     private double dy;
+    private double dt;
     private String classText;
     private String className;
     private static boolean checksize = true;
@@ -130,11 +131,13 @@ public class DataOperations {
                     t_end = (double) obj.get("t_end"),
                     t_change = (double) obj.get("t_change"),
                     d_x = (double) obj.get("d_x"),
-                    d_y = (double) obj.get("d_y");
+                    d_y = (double) obj.get("d_y"),
+                    d_t = (double) obj.get("d_t");
             classText = (String) obj.get("classText");
             className = (String) obj.get("className");
             dx = d_x;
             dy = d_y;
+            dt = d_t;
             for (double xyt = x_start; xyt <= x_end; xyt += x_change) {
                 x.add(Math.round(xyt * 10000) / 10000.0);
             }
@@ -157,9 +160,9 @@ public class DataOperations {
         List<List<List<Double>>> result = null;
         try {
             Class my = test.getClassObject(classText, className);
-            Method m = my.getMethod("compute", new Class[]{List.class, List.class, List.class, double.class, double.class, Method.class});
+            Method m = my.getMethod("test", new Class[]{List.class, List.class, List.class, double.class, double.class, double.class, Method.class});
             Object o = my.newInstance();
-            result = (List<List<List<Double>>>) m.invoke(o, new Object[]{x, y, t, dx, dy,
+            result = (List<List<List<Double>>>) m.invoke(o, new Object[]{x, y, t, dx, dy, dt,
                     DataOperations.class.getMethod("callback", List.class, List.class, List.class, List.class)});
             System.out.println(result);
         } catch (Exception e) {

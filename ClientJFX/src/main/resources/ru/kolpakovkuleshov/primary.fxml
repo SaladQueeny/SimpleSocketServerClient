@@ -19,9 +19,9 @@
       <TextField fx:id="ystart" layoutX="113.0" layoutY="205.0" style="-fx-background-radius: 0;" />
       <TextField fx:id="yend" layoutX="113.0" layoutY="244.0" style="-fx-background-radius: 0;" />
       <TextField fx:id="ychange" layoutX="113.0" layoutY="281.0" style="-fx-background-radius: 0;" />
-      <TextField fx:id="tstart" layoutX="109.0" layoutY="373.0" style="-fx-background-radius: 0;" />
-      <TextField fx:id="tend" layoutX="109.0" layoutY="421.0" style="-fx-background-radius: 0;" />
-      <TextField fx:id="tchange" layoutX="109.0" layoutY="467.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="tstart" layoutX="113.0" layoutY="360.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="tend" layoutX="113.0" layoutY="397.0" style="-fx-background-radius: 0;" />
+      <TextField fx:id="tchange" layoutX="113.0" layoutY="445.0" style="-fx-background-radius: 0;" />
       <Text layoutX="52.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Xstart" wrappingWidth="47.580078125">
          <font>
             <Font size="18.0" />
@@ -52,17 +52,17 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="392.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tstart" wrappingWidth="47.580078125">
+      <Text layoutX="48.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tstart" wrappingWidth="47.580078125">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="52.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tend" wrappingWidth="47.580078125">
+      <Text layoutX="48.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tend" wrappingWidth="47.580078125">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text layoutX="31.0" layoutY="485.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tchange" wrappingWidth="68.580078125">
+      <Text layoutX="37.0" layoutY="464.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tchange" wrappingWidth="68.580078125">
          <font>
             <Font size="18.0" />
          </font>
@@ -103,6 +103,12 @@
       </Text>
       <TextField fx:id="dx" layoutX="113.0" layoutY="145.0" style="-fx-background-radius: 0;" />
       <Text layoutX="61.0" layoutY="164.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dX" wrappingWidth="30.6884765625">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="dt" layoutX="113.0" layoutY="490.0" style="-fx-background-radius: 0;" />
+      <Text layoutX="56.0" layoutY="509.0" strokeType="OUTSIDE" strokeWidth="0.0" text="dT" wrappingWidth="30.6884765625">
          <font>
             <Font size="18.0" />
          </font>

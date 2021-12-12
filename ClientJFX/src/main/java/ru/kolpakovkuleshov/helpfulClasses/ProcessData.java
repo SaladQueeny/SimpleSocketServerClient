@@ -25,6 +25,7 @@ public class ProcessData {
     public static double t_change;
     public static double d_x;
     public static double d_y;
+    public static double d_t;
     public static boolean checksize;
     public static String className;
     public static volatile List<Boolean> isCreated;
@@ -43,7 +44,8 @@ public class ProcessData {
                 "Get class text", Level.INFO, true);
     }
 
-    public static void setStartData(double xstart, double xend, double xchange, double ystart, double yend, double ychange, double tstart, double tend, double tchange, double dx, double dy) {
+    public static void setStartData(double xstart, double xend, double xchange, double ystart, double yend, double ychange,
+                                    double tstart, double tend, double tchange, double dx, double dy, double dt) {
         Scanner scaner = null;
         try {
             scaner = new Scanner(f);
@@ -70,6 +72,7 @@ public class ProcessData {
         t_change = tchange;
         d_x = dx;
         d_y = dy;
+        d_t = dt;
         isCreated = new ArrayList<>();
         for (double i = t_start; i <= t_end; i += t_change) {
             isCreated.add(false);
@@ -93,6 +96,7 @@ public class ProcessData {
         obj.put("className", className);
         obj.put("d_x", d_x);
         obj.put("d_y", d_y);
+        obj.put("d_t", d_t);
         Logs.writeLog(ProcessData.class, new Throwable().getStackTrace()[0].getMethodName(),
                 "Create request to server", Level.INFO, true);
         System.out.println(obj.toJSONString());
