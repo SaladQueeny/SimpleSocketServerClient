@@ -29,6 +29,9 @@ import ru.kolpakovkuleshov.helpfulClasses.ProcessData;
 public class PrimaryController {
 
     @FXML
+    private TextField dt;
+
+    @FXML
     private TextField dx;
 
     @FXML
@@ -141,6 +144,10 @@ public class PrimaryController {
                                                 match = p.matcher(dy.getText().trim());
                                                 if(match.matches()){
                                                     check++;
+                                                    match = p.matcher(dt.getText().trim());
+                                                    if(match.matches()){
+                                                        check++;
+                                                    }
                                                 }
                                             }
                                         }
@@ -154,7 +161,7 @@ public class PrimaryController {
         }
         Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                 "Check correct data", Level.SEVERE, true);
-        if (check == 11) {
+        if (check == 12) {
             return true;
         } else {
             return false;
@@ -173,7 +180,8 @@ public class PrimaryController {
                 Double.parseDouble(tend.getText().trim()),
                 Double.parseDouble(tchange.getText().trim()),
                 Double.parseDouble(dx.getText().trim()),
-                Double.parseDouble(dy.getText().trim()));
+                Double.parseDouble(dy.getText().trim()),
+                Double.parseDouble(dt.getText().trim()));
         Logs.writeLog(this.getClass(), new Throwable().getStackTrace()[0].getMethodName(),
                 "Got start data", Level.SEVERE, true);
     }

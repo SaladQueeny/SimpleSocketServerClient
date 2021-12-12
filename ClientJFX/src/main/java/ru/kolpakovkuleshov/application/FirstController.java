@@ -43,7 +43,6 @@ public class FirstController {
 
     @FXML
     void initialize() {
-
         start_path.setOnAction(event -> {
             File f = new File(textFieldPath.getText());
             StringBuilder classstr = new StringBuilder();
