@@ -166,7 +166,7 @@ public class DataOperations {
                     DataOperations.class.getMethod("callback", List.class, List.class, List.class, List.class)});
             System.out.println(result);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException();
         }
 
         return result;
