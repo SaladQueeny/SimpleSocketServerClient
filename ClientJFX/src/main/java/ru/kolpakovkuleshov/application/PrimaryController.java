@@ -98,6 +98,7 @@ public class PrimaryController {
                 response = generalities.readLine();
                 while (response != null) {
                     System.out.println("get callback");
+                    System.out.println(response);
                     ProcessData.getDataFromJson(response);
                     response = generalities.readLine();
                 }

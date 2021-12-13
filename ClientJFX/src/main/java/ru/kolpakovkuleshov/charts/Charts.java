@@ -76,6 +76,7 @@ public class Charts {
 //        }
 
         final Shape surface = MyBuilder.buildOrthonormal(mapper, xrange, xsteps, yrange, ysteps);
+//        final Shape surface = Builder.buildOrthonormal(mapper, range, steps);
         surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), surface.getBounds().getZmin(), surface.getBounds().getZmax(), new Color(1, 1, 1, .5f)));
         surface.setFaceDisplayed(true);
         surface.setWireframeDisplayed(false);
