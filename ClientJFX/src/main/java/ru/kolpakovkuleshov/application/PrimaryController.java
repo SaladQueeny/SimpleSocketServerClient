@@ -209,11 +209,11 @@ public class PrimaryController {
         Charts chart = new Charts();
         JavaFXChartFactory factory = new JavaFXChartFactory();
         List<AWTChart> chartsList = chart.getAWTCharts(factory, ProcessData.x, ProcessData.y, ProcessData.t, ProcessData.z);
-        //if (suicide) {
+        if (suicide) {
             chart_pain.getChildren().clear();
             imageViewList.clear();
             suicide = false;
-       // }
+        }
 
         for (int i = 0; i < chartsList.size(); i++) {
             ImageView imageView = factory.bindImageView(chartsList.get(i));
@@ -265,6 +265,7 @@ public class PrimaryController {
         });
         start_button.setOnAction(event -> {
             if (isGoodData()) {
+                suicide = true;
                 getStartData();
                 sendRequestToServer();
             } else {
@@ -278,6 +279,7 @@ public class PrimaryController {
         });
 
         update_button.setOnAction(event -> {
+            //suicide = true;
             if (ProcessData.isCreated.get(ProcessData.isCreated.size() - 1) != true) {
                 initSlider();
                 createCharts();
