@@ -32,7 +32,7 @@ public class DataOperations {
 
         String response = createJson(z, x, y, t);
         generalities.writeLine(response);
-        Thread.sleep(5000);
+        Thread.sleep(500);
     }
 
     public static String createJson(List<List<List<Double>>> z, List<Double> x, List<Double> y, List<Double> t) {
