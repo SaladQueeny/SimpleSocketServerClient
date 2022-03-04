@@ -34,7 +34,7 @@ public class Server {
                     } else {
                         response = dataOperations.workWithData(request);
                     }
-                    System.out.println("Response: " + response);
+                    //System.out.println("Response: " + response);
 
                     try {
                         Thread.sleep(2000);
