@@ -32,7 +32,7 @@ public class DataOperations {
 
         String response = createJson(z, x, y, t);
         generalities.writeLine(response);
-        Thread.sleep(500);
+        Thread.sleep(1);
     }
 
     public static String createJson(List<List<List<Double>>> z, List<Double> x, List<Double> y, List<Double> t) {
@@ -164,7 +164,7 @@ public class DataOperations {
             Object o = my.newInstance();
             result = (List<List<List<Double>>>) m.invoke(o, new Object[]{x, y, t, dx, dy, dt,
                     DataOperations.class.getMethod("callback", List.class, List.class, List.class, List.class)});
-            System.out.println(result);
+            //System.out.println(result);
         } catch (Exception e) {
             throw new RuntimeException();
         }

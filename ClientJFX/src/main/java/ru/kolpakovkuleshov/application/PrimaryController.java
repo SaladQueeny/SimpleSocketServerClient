@@ -98,7 +98,7 @@ public class PrimaryController {
                 response = generalities.readLine();
                 while (response != null) {
                     System.out.println("get callback");
-                    System.out.println(response);
+                    //System.out.println(response);
                     ProcessData.getDataFromJson(response);
                     response = generalities.readLine();
                 }
@@ -245,7 +245,6 @@ public class PrimaryController {
                     a1.setContentText("We don't have this T!");
                     a1.setHeaderText("Incorrect data!");
                     a1.show();
-
                 }
 
                 if (previous_T != currentT) {
@@ -256,7 +255,6 @@ public class PrimaryController {
                     a1.setContentText("We have this T!");
                     a1.setHeaderText("Duplicate T!");
                     a1.show();
-
                 }
                 check = false;
                 previous_T = currentT;
